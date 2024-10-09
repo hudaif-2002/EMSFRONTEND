@@ -1,4 +1,4 @@
-﻿@{
+﻿@* @{
     ViewData["Title"] = "Manager Dashboard";
 }
 
@@ -99,3 +99,20 @@
     </script>
 </body>
 </html>
+ *@
+
+@{
+    ViewData["Title"] = "Employee Dashboard";
+}
+
+<h2>Employee Dashboard</h2>
+
+<div>
+    <h3>Your Tasks</h3>
+    <a href="@Url.Action("TaskList", "EmpTaskList")" class="btn btn-secondary">View My Tasks</a>
+</div>
+
+<div>
+    <h3>Upload Tasks</h3>
+    <a href="@Url.Action("UploadTask", "EmpTaskList")" class="btn btn-success">Upload Task</a>
+</div>

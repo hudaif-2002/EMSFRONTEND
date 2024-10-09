@@ -1,49 +1,31 @@
-﻿@model EMSFRONTEND.Models.UploadModel
+﻿@model List<TaskModel>
 
-<h2>Tasks Assigned to You</h2>
+@{
+    ViewData["Title"] = "Upload Task";
+}
 
-<!-- Display the tasks in a table -->
-<table class="table">
-<thead>
-<tr>
-            <th>Task ID</th>
+<h2>Upload Task</h2>
+
+<table>
+    <thead>
+        <tr>
             <th>Task Name</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Assigned Date</th>
-            <th>Deadline Date</th>
-            <th>Resources</th>
+            <th>Upload File</th>
         </tr>
-</thead>
-<tbody>
-        @foreach (var task in ViewBag.AssignedTasks)
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
         {
             <tr>
-                        <td>@task.TaskId</td>
-                        <td>@task.TaskName</td>
-                        <td>@task.Description</td>
-                        <td>@task.TaskStatus</td>
-                        <td>@task.AssignedDate.ToShortDateString()</td>
-                        <td>@task.DeadlineDate.ToShortDateString()</td>
-                        <td>@task.Resources</td>
-                    </tr>
+                <td>@task.TaskName</td>
+                <td>
+                    <form asp-action="UploadTask" method="post">
+                        <input type="hidden" name="TaskId" value="@task.TaskId" />
+                        <input type="text" name="FilePath" placeholder="File Path" required />
+                        <button type="submit">Upload</button>
+                    </form>
+                </td>
+            </tr>
         }
-</tbody>
+    </tbody>
 </table>
-
-<h2>Upload Task File</h2>
-
-<!-- Form to manually enter TaskId and FilePath -->
-<form asp-action="UploadTask" method="post">
-<div class="form-group">
-<label for="TaskId">Task ID</label>
-<input type="number" id="TaskId" name="TaskId" class="form-control" value="@Model.TaskId" required />
-</div>
-
-    <div class="form-group">
-<label for="FilePath">File Path</label>
-<input type="text" id="FilePath" name="FilePath" class="form-control" value="@Model.FilePath" required />
-</div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>

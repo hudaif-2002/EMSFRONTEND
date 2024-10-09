@@ -1,4 +1,4 @@
-﻿@{
+﻿@* @{
     ViewData["Title"] = "Manager Dashboard";
 }
 
@@ -106,4 +106,18 @@
 
 
 
+
+ *@
+
+
+@{
+    ViewData["Title"] = "Manager Dashboard";
+}
+
+<h2>Manager Dashboard</h2>
+
+<div>
+    <h3>Assign Tasks</h3>
+    <a href="@Url.Action("AssignTask", "EmpTaskList")" class="btn btn-primary">Assign Task</a>
+</div>
 

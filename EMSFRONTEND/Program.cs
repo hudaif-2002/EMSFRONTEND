@@ -5,15 +5,24 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddHttpClient<LoginSignupService>(); // Register the service
+// Register the EmpTaskListService with HttpClient and BaseAddress
+builder.Services.AddHttpClient<EmpTaskListService>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5293"); // Adjust to your API Base URL
+});
 
+// Register the LoginSignupService similarly
+builder.Services.AddHttpClient<LoginSignupService>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5293"); // Adjust to your backend URL
+});
 
 // Add session support
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the session timeout as needed
-    options.Cookie.HttpOnly = true; // Make the session cookie HTTP only
-    options.Cookie.IsEssential = true; // Make the session cookie essential
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 var app = builder.Build();
@@ -36,7 +45,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Auth}/{action=Login}/{id?}"); // Set Auth controller's Login as default
-
+    pattern: "{controller=Auth}/{action=Login}/{id?}");
 
 app.Run();

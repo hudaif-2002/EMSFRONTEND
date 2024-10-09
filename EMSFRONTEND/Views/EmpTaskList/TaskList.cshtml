@@ -1,31 +1,29 @@
-﻿@model List<EMSFRONTEND.Models.TaskModel>
+﻿@model List<TaskModel>
 
-<h2>Tasks List</h2>
+@{
+    ViewData["Title"] = "Task List";
+}
 
-<table class="table">
+<h2>Assigned Tasks</h2>
+
+<table>
     <thead>
         <tr>
-            <th>Task ID</th>
             <th>Task Name</th>
             <th>Description</th>
+            <th>Due Date</th>
             <th>Status</th>
-            <th>Assigned Date</th>
-            <th>Deadline Date</th>
-            <th>Resources</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var task in Model)
         {
-                <tr>
-                    <td>@task.TaskId</td>
-                    <td>@task.TaskName</td>
-                    <td>@task.Description</td>
-                    <td>@task.TaskStatus</td>
-                    <td>@task.AssignedDate.ToShortDateString()</td>
-                    <td>@task.DeadlineDate.ToShortDateString()</td>
-                    <td>@task.Resources</td>
-                </tr>
+            <tr>
+                <td>@task.TaskName</td>
+                <td>@task.Description</td>
+                <td>@task.DeadlineDate</td>
+                <td>@task.TaskStatus</td>
+            </tr>
         }
     </tbody>
 </table>
