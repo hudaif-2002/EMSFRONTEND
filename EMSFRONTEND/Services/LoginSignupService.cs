@@ -65,6 +65,102 @@
 
 
 
+//using EMSFRONTEND.Models;
+//using Newtonsoft.Json;
+//using System.Collections.Generic;
+//using System.Net.Http;
+//using System.Text;
+//using System.Threading.Tasks;
+
+//namespace EMSFRONTEND.Services
+//{
+//    public class LoginSignupService
+//    {
+//        private readonly HttpClient _httpClient;
+
+//        public LoginSignupService(HttpClient httpClient)
+//        {
+//            _httpClient = httpClient;
+//            _httpClient.BaseAddress = new Uri("http://localhost:5293"); // Adjust to your backend URL
+//        }
+
+//        public async Task<bool> SignupAsync(UsersModel model)
+//        {
+//            var json = JsonConvert.SerializeObject(model);
+//            var content = new StringContent(json, Encoding.UTF8, "application/json");
+//            var result = await _httpClient.PostAsync("/api/auth/signup", content);
+
+//            return result.IsSuccessStatusCode;
+//        }
+
+//        public async Task<bool> LoginAsync(LoginRequestModel model)
+//        {
+//            var json = JsonConvert.SerializeObject(model);
+//            var content = new StringContent(json, Encoding.UTF8, "application/json");
+//            var result = await _httpClient.PostAsync("/api/auth/login", content);
+
+//            return result.IsSuccessStatusCode;
+//        }
+
+
+
+
+//        // Method to fetch the manager by their name
+//        public async Task<UsersModel> GetManagerByNameAsync(string managerName)
+//        {
+//            var response = await _httpClient.GetAsync($"/api/auth/getmanagerbyname/{managerName}");
+//            if (response.IsSuccessStatusCode)
+//            {
+//                var json = await response.Content.ReadAsStringAsync();
+//                return JsonConvert.DeserializeObject<UsersModel>(json);
+//            }
+
+//            return null;
+//        }
+
+
+//        //public async Task<UsersModel> GetManagerByNameAsync(string managerName)
+//        //{
+//        //    var response = await _httpClient.GetAsync($"/api/auth/getmanagerbyname/{managerName}");
+//        //    if (response.IsSuccessStatusCode)
+//        //    {
+//        //        var json = await response.Content.ReadAsStringAsync();
+//        //        return JsonConvert.DeserializeObject<UsersModel>(json);
+//        //    }
+
+//        //    return null;
+//        //}
+
+//        // Method to fetch the list of all managers
+//        public async Task<List<UsersModel>> GetManagersAsync()
+//        {
+//            var response = await _httpClient.GetAsync("/api/auth/getmanagers");
+//            if (response.IsSuccessStatusCode)
+//            {
+//                var json = await response.Content.ReadAsStringAsync();
+//                return JsonConvert.DeserializeObject<List<UsersModel>>(json);
+//            }
+
+//            return new List<UsersModel>();
+//        }
+
+
+
+
+//        public async Task<UsersModel> GetUserByUsernameAsync(string username)
+//        {
+//            // Implement the logic to fetch the user from the database
+//            // For example:
+//            return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+//        }
+
+
+
+//    }
+//}
+
+
+
 using EMSFRONTEND.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -102,8 +198,15 @@ namespace EMSFRONTEND.Services
             return result.IsSuccessStatusCode;
         }
 
-
-
+        // Method to fetch the user by username
+        public async Task<UsersModel> GetUserByUsernameAsync(string username)
+        {
+            var response = await _httpClient.GetAsync($"/api/auth/getuserbyusername/{username}");
+           
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<UsersModel>(json);
+            
+        }
 
         // Method to fetch the manager by their name
         public async Task<UsersModel> GetManagerByNameAsync(string managerName)
@@ -117,19 +220,6 @@ namespace EMSFRONTEND.Services
 
             return null;
         }
-
-
-        //public async Task<UsersModel> GetManagerByNameAsync(string managerName)
-        //{
-        //    var response = await _httpClient.GetAsync($"/api/auth/getmanagerbyname/{managerName}");
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var json = await response.Content.ReadAsStringAsync();
-        //        return JsonConvert.DeserializeObject<UsersModel>(json);
-        //    }
-
-        //    return null;
-        //}
 
         // Method to fetch the list of all managers
         public async Task<List<UsersModel>> GetManagersAsync()

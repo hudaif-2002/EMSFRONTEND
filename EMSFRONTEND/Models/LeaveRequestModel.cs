@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace EMSFRONTEND.Models
@@ -24,7 +25,8 @@ namespace EMSFRONTEND.Models
 
             [Required]
             [StringLength(20)]
-            public string LeaveStatus { get; set; } = "Pending"; // Default value
+            [DefaultValue("Pending")]
+        public string LeaveStatus { get; set; } = "Pending"; // Default value
 
             // Navigation property
            // public virtual UsersModel User { get; set; }

@@ -1,6 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "manager Dashboard";
+    ViewData["Title"] = "Employee Dashboard";
 }
 
-<h1>Welcome to the Empo Dashboard</h1>
+<h1>Welcome to the Employee Dashboard</h1>
+
 <!-- Add your employee dashboard content here -->
+<!-- Button to Redirect to Create Leave Request -->
+<div>
+    <a asp-controller="LeaveRequestMvc" asp-action="Create" class="btn btn-primary">Leave Request</a>
+</div>
+

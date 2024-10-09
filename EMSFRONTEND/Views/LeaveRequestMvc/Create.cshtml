@@ -1,0 +1,36 @@
+﻿@model EMSFRONTEND.Models.LeaveRequestModel
+
+<h2>Create Leave Request</h2>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label asp-for="FromDate"></label>
+        <input asp-for="FromDate" type="date" />
+        <span asp-validation-for="FromDate"></span>
+    </div>
+    <div>
+        <label asp-for="ToDate"></label>
+        <input asp-for="ToDate" type="date" />
+        <span asp-validation-for="ToDate"></span>
+    </div>
+    <div>
+        <label asp-for="Reason"></label>
+        <textarea asp-for="Reason"></textarea>
+        <span asp-validation-for="Reason"></span>
+    </div>
+
+
+   @*     <div>
+        <label asp-for="UserId"></label>
+        <textarea asp-for="UserId"></textarea>
+        <span asp-validation-for="UserId"></span>
+    </div> *@
+
+
+    @* <input type="hidden" asp-for="UserId" value="@ViewBag.UserId" /> *@
+    <!-- Set UserId as needed -->
+    <button type="submit">Submit Leave Request</button>
+</form>
+
+<a asp-action="Index">Back to Leave Requests</a>
+
