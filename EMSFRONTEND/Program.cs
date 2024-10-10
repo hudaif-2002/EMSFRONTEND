@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient<LoginSignupService>(); // Register the service
-
+builder.Services.AddHttpClient<TeamService>();
 
 // Add session support
 builder.Services.AddSession(options =>

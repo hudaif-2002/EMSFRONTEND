@@ -1,0 +1,80 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model EMSFRONTEND.Models.UsersModel
+
+<h2>@(Model.UserId > 0 ? "Profile" : "Create Profile")</h2>
+
+@if (Model.UserId > 0) // Check if the user has an ID (existing profile)
+{
+    <div>
+        <p><strong>Username:</strong> @Model.Username</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Full Name:</strong> @Model.FullName</p>
+        <p><strong>Role:</strong> @Model.Role</p>
+        <p><strong>Manager Name:</strong> @Model.ManagerName</p>
+        <p><strong>Date of Joining:</strong> @Model.DateOfJoining.ToShortDateString()</p>
+
+        <button id="editButton">Edit Profile</button>
+    </div>
+}
+else // Create profile form for new users
+{
+    <h2>Create Profile</h2>
+}
+
+<div id="editForm" style="display: @(Model.UserId > 0 ? "none" : "block")">
+    <form asp-action="EditProfile" method="post">
+        <input type="hidden" asp-for="UserId" />
+
+        <div>
+            <label asp-for="Username"></label>
+            <input asp-for="Username" />
+            <span asp-validation-for="Username"></span>
+        </div>
+        <div>
+            <label asp-for="Email"></label>
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="FullName"></label>
+            <input asp-for="FullName" />
+            <span asp-validation-for="FullName"></span>
+        </div>
+        <div>
+            <label asp-for="Role"></label>
+            <input asp-for="Role" />
+            <span asp-validation-for="Role"></span>
+        </div>
+        <div>
+            <label asp-for="ManagerName"></label>
+            <input asp-for="ManagerName" />
+            <span asp-validation-for="ManagerName"></span>
+        </div>
+        <div>
+            <label asp-for="DateOfJoining"></label>
+            <input asp-for="DateOfJoining" type="date" />
+            <span asp-validation-for="DateOfJoining"></span>
+        </div>
+
+        <button type="submit">Save</button>
+        <button type="button" id="cancelButton">Cancel</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('editButton').addEventListener('click', function () {
+            document.getElementById('editForm').style.display = 'block'; // Show edit form
+            this.style.display = 'none'; // Hide edit button
+        });
+
+        document.getElementById('cancelButton').addEventListener('click', function () {
+            document.getElementById('editForm').style.display = 'none'; // Hide edit form
+            document.getElementById('editButton').style.display = 'block'; // Show edit button
+        });
+    </script>
+}

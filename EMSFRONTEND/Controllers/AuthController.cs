@@ -294,15 +294,16 @@ namespace EMSFRONTEND.Controllers
             if (ModelState.IsValid)
             {
                 var isSuccess = await _loginSignupService.LoginAsync(model);
-
+                var user = await _loginSignupService.GetUserByUsernameAsync(model.Username);
                 if (isSuccess)
                 {
                     HttpContext.Session.SetString("Username", model.Username);
                     HttpContext.Session.SetString("Role", model.Role);
+                    HttpContext.Session.SetInt32("SUserId", user.UserId);
 
                     if (model.Role == "Manager")
                     {
-                        return RedirectToAction("ManagerView", "Dashboard");
+                        return RedirectToAction("ManagerView", "Dashboard", isSuccess);
                     }
                     else if (model.Role == "Employee")
                     {

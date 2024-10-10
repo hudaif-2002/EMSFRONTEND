@@ -88,7 +88,7 @@ namespace EMSFRONTEND.Services
         {
             var json = JsonConvert.SerializeObject(model);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var result = await _httpClient.PostAsync("/api/auth/signup", content);
+            var result = await _httpClient.PostAsync("/api/Auth/signup", content);
 
             return result.IsSuccessStatusCode;
         }
@@ -97,7 +97,7 @@ namespace EMSFRONTEND.Services
         {
             var json = JsonConvert.SerializeObject(model);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var result = await _httpClient.PostAsync("/api/auth/login", content);
+             var result = await _httpClient.PostAsJsonAsync("/api/Auth/login", model);
 
             return result.IsSuccessStatusCode;
         }
@@ -143,6 +143,14 @@ namespace EMSFRONTEND.Services
             }
 
             return new List<UsersModel>();
+        }
+
+        // Method to fetch the user by username
+        public async Task<UsersModel> GetUserByUsernameAsync(string username)
+        {
+            var response = await _httpClient.GetAsync($"/api/auth/getuserbyusername/{username}");
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<UsersModel>(json);
         }
     }
 }
