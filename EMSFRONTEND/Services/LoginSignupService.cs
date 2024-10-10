@@ -103,7 +103,13 @@ namespace EMSFRONTEND.Services
         }
 
 
-
+        // Method to fetch the user by username
+        public async Task<UsersModel> GetUserByUsernameAsync(string username)
+        {
+            var response = await _httpClient.GetAsync($"/api/auth/getuserbyusername/{username}");
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<UsersModel>(json);
+        }
 
         // Method to fetch the manager by their name
         public async Task<UsersModel> GetManagerByNameAsync(string managerName)

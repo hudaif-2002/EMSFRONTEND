@@ -17,7 +17,7 @@
         @foreach (var task in Model)
         {
             <tr>
-                <td>@task.TaskName</td>
+                <td>@task.Title</td>
                 <td>
                     <form asp-action="UploadTask" method="post">
                         <input type="hidden" name="TaskId" value="@task.TaskId" />

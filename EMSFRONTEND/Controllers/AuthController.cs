@@ -191,7 +191,7 @@ namespace EMSFRONTEND.Controllers
             {
                 // Ensure ManagerName and ManagerId are set to fixed values for manager signup
                 model.ManagerName = "CEO";  // You can replace "CEO" with your preferred default value
-                model.ManagerId = 1;  // Set a default ManagerId (1 or any fixed ID)
+                model.ManagerId = 0;  // Set a default ManagerId (1 or any fixed ID)
 
                 // No need to select a manager during manager signup
                 ModelState.Remove("ManagerName");
@@ -297,21 +297,21 @@ namespace EMSFRONTEND.Controllers
         {
             if (ModelState.IsValid)
             {
-                var isSuccess = await _loginSignupService.LoginAsync(model);
+                await _loginSignupService.LoginAsync(model);
+                var user = await _loginSignupService.GetUserByUsernameAsync(model.Username);
 
-                if (isSuccess)
+
+                HttpContext.Session.SetString("Username", model.Username);
+                HttpContext.Session.SetString("Role", model.Role);
+                HttpContext.Session.SetInt32("SUserId", user.UserId);
+
+                if (model.Role == "Manager")
                 {
-                    HttpContext.Session.SetString("Username", model.Username);
-                    HttpContext.Session.SetString("Role", model.Role);
-
-                    if (model.Role == "Manager")
-                    {
-                        return RedirectToAction("ManagerView", "Dashboard");
-                    }
-                    else if (model.Role == "Employee")
-                    {
-                        return RedirectToAction("EmployeeView", "Dashboard");
-                    }
+                    return RedirectToAction("ManagerView", "Dashboard");
+                }
+                else if (model.Role == "Employee")
+                {
+                    return RedirectToAction("EmployeeView", "Dashboard");
                 }
                 ModelState.AddModelError("", "Invalid login attempt.");
             }
