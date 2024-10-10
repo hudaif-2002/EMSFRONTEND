@@ -1,4 +1,4 @@
-﻿@model List<TaskModel>
+﻿@model IEnumerable<TaskModel>
 
 @{
     ViewData["Title"] = "Task List";
@@ -9,9 +9,12 @@
 <table>
     <thead>
         <tr>
-            <th>Task Name</th>
+            <th>Task Id</th>
+            <th>Task Title</th>
             <th>Description</th>
-            <th>Due Date</th>
+            <th>Assigned Date</th>
+            <th>Deadline Date</th>
+            <th>Resources</th>
             <th>Status</th>
         </tr>
     </thead>
@@ -19,11 +22,15 @@
         @foreach (var task in Model)
         {
             <tr>
+                <td>@task.TaskId</td>
                 <td>@task.Title</td>
                 <td>@task.Description</td>
+                <td>@task.AssignedDate </td>
                 <td>@task.DeadlineDate</td>
-                <td>@task.TaskStatus</td>
+                <td>@task.Resources</td>
+                <td>@task.TaskStatus</td> 
             </tr>
         }
     </tbody>
 </table>
+

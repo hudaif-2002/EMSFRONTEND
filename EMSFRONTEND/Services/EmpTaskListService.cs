@@ -59,15 +59,31 @@ namespace EMSFRONTEND.Services
             return response.IsSuccessStatusCode;
         }
 
+        /* public async Task<IEnumerable<TaskModel>> GetTasksForEmployee(int userId)
+         {
+             var response = await _httpClient.GetAsync($"api/EmpTaskListApi/TaskList/{userId}");
+             if (response.IsSuccessStatusCode)
+             {
+                 var jsonResponse = await response.Content.ReadAsStringAsync();
+                 return JsonConvert.DeserializeObject<IEnumerable<TaskModel>>(jsonResponse);
+             }
+             return new List<TaskModel>();
+         }*/
+
+
         public async Task<IEnumerable<TaskModel>> GetTasksForEmployee(int userId)
         {
-            var response = await _httpClient.GetAsync($"api/EmpTaskListApi/TaskList?userId={userId}");
-            if (response.IsSuccessStatusCode)
+            var response = await _httpClient.GetAsync($"api/EmpTaskList/TaskList/{userId}");
+
+            if (!response.IsSuccessStatusCode)
             {
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<IEnumerable<TaskModel>>(jsonResponse);
+                // Log the error message
+                var error = await response.Content.ReadAsStringAsync();
+                throw new Exception($"API call failed: {error}");
             }
-            return new List<TaskModel>();
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<IEnumerable<TaskModel>>(jsonResponse);
         }
 
 
