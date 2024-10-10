@@ -1,12 +1,15 @@
 ﻿@model EMSFRONTEND.Models.UsersModel
-
+@{
+    ViewData["Title"] = "Manager Dashboard";
+}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     /<title>manager</title> 
+    /
+    <title>@ViewData["Title"]</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -116,13 +119,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="btn btn-outline-secondary btn-profile" id="profileIcon"
+                  @*   <a class="btn btn-outline-secondary btn-profile" id="profileIcon"
                        asp-controller="Team"
                        asp-action="ViewProfile"
                        asp-route-userId="@Model.UserId">
                         <!-- Pass the UserId as a route parameter -->
                         <i class="bi bi-person-circle"></i>
-                    </a>
+                    </a> *@
                 </li>
             </ul>
         </div>
