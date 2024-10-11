@@ -7,7 +7,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient<LoginSignupService>(); // Register the service
 builder.Services.AddHttpClient<LeaveRequestService>(); // Register the service
-
+builder.Services.AddHttpClient<PerformanceService>();
 
 // Add session support
 builder.Services.AddSession(options =>

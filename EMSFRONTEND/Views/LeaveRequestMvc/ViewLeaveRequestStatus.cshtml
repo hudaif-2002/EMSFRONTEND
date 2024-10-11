@@ -1,0 +1,26 @@
+﻿@model IEnumerable<EMSFRONTEND.Models.LeaveRequestModel>
+<h2>Your Leave Requests</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Leave ID</th>
+            <th>From Date</th>
+            <th>To Date</th>
+            <th>Reason</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@request.LeaveId</td>
+                <td>@request.FromDate.ToShortDateString()</td>
+                <td>@request.ToDate.ToShortDateString()</td>
+                <td>@request.Reason</td>
+                <td>@request.LeaveStatus</td>
+            </tr>
+        }
+    </tbody>
+</table>

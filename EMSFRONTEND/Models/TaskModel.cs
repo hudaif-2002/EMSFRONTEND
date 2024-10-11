@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,6 +29,7 @@ namespace EMSFRONTEND.Models
 
             [Required]
             [StringLength(20)]
+            [DefaultValue("Pending")]
             public string TaskStatus { get; set; } = "Pending"; // Default value
 
             [StringLength(255)] // Adjust length as necessary for OneDrive links

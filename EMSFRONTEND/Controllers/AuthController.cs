@@ -26,14 +26,65 @@ namespace EMSFRONTEND.Controllers
         }
 
 
+        /*   [HttpPost]
+           public async Task<IActionResult> Signup(UsersModel model)
+           {
+               if (model.Role == "Manager")
+               {
+                   // Ensure ManagerName and ManagerId are set to fixed values for manager signup
+                   model.ManagerName = "CEO";  // You can replace "CEO" with your preferred default value
+                   model.ManagerId = 0;  // Set a default ManagerId (1 or any fixed ID)
+
+                   // No need to select a manager during manager signup
+                   ModelState.Remove("ManagerName");
+               }
+               else if (model.Role == "Employee")
+               {
+                   // Handle employee signup (this part is already working for you)
+                   if (string.IsNullOrEmpty(model.ManagerName))
+                   {
+                       ModelState.AddModelError("ManagerName", "Please select a manager for Employee signup.");
+                   }
+                   else
+                   {
+                       var manager = await _loginSignupService.GetManagerByNameAsync(model.ManagerName);
+                       if (manager != null)
+                       {
+                           model.ManagerId = manager.UserId;
+                       }
+                       else
+                       {
+                           ModelState.AddModelError("ManagerName", "Selected manager not found. Please try again.");
+                       }
+                   }
+               }
+
+
+               // Check if the model is valid before proceeding with signup
+               if (ModelState.IsValid)
+               {
+                   var isSuccess = await _loginSignupService.SignupAsync(model);
+                   if (isSuccess)
+                   {
+                       return RedirectToAction("Login");
+                   }
+                   ModelState.AddModelError("", "Signup failed. Please try again.");
+               }
+
+               // If signup fails, reload the managers list
+               var managers = await _loginSignupService.GetManagersAsync();
+               ViewBag.Managers = managers;
+
+               return View(model);
+           }*/
         [HttpPost]
         public async Task<IActionResult> Signup(UsersModel model)
         {
             if (model.Role == "Manager")
             {
                 // Ensure ManagerName and ManagerId are set to fixed values for manager signup
-                model.ManagerName = "CEO";  // You can replace "CEO" with your preferred default value
-                model.ManagerId = 1;  // Set a default ManagerId (1 or any fixed ID)
+                model.ManagerName = "Admin";  // You can replace "CEO" with your preferred default value
+                model.ManagerId = 0;  // Set a default ManagerId (1 or any fixed ID)
 
                 // No need to select a manager during manager signup
                 ModelState.Remove("ManagerName");

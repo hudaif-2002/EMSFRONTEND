@@ -34,7 +34,7 @@ namespace EMSFRONTEND.Models
             public string ManagerName { get; set; } = "Admin";
         public int? ManagerId { get; set; } = 1001;
 
-        public DateTime DateOfJoining { get; set; }  
+        public DateOnly DateOfJoining { get; set; }  
     }
     }
 

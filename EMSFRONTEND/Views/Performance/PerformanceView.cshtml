@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<EMSFRONTEND.Models.PerformanceModel>
+
+<h2>Employee Performance</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>UserId</th>
+            <th>Number of Tasks Assigned</th>
+            <th>Completed Tasks</th>
+            <th>Performance Percentage</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var performance in Model)
+        {
+            <tr>
+                <td>@performance.UserId</td>
+                <td>@performance.NumberOfTasksAssigned</td>
+                <td>@performance.CompletedCount</td>
+                <td>@performance.PerformancePercentage</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
