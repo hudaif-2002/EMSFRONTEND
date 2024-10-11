@@ -74,6 +74,11 @@ builder.Services.AddHttpClient<LoginSignupService>(client =>
     client.BaseAddress = new Uri("http://localhost:5293"); // Adjust to your backend URL
 });
 
+builder.Services.AddHttpClient<PerformanceService>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5293"); // Adjust to your backend URL
+});
+
 // Add session support
 builder.Services.AddSession(options =>
 {

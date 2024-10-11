@@ -181,11 +181,25 @@ namespace EMSFRONTEND.Controllers
 				return Unauthorized();
 			}
 			var managerId = HttpContext.Session.GetInt32("SUserId") ?? 0; // Get ManagerId from session
-			var leaveRequests = await _taskListService.GetUploadsForManager(managerId);
+			var uploads = await _taskListService.GetUploadsForManager(managerId);
 
-			return View(leaveRequests);
+			return View(uploads);
 		}
 
 
-	}
+
+        public async Task<IActionResult> ViewAllTasks()
+        {
+            var role = HttpContext.Session.GetString("Role");
+            if (role != "Manager")
+            {
+                return Unauthorized();
+            }
+            var managerId = HttpContext.Session.GetInt32("SUserId") ?? 0; // Get ManagerId from session
+            var alltasks = await _taskListService.GetTasksUnderManager(managerId);
+
+            return View(alltasks);
+        }
+
+    }
 }

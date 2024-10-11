@@ -215,5 +215,20 @@ namespace EMSFRONTEND.Services
 			return new List<UploadModel>();
 		}
 
-	}
+
+        
+
+
+            public async Task<IEnumerable<TaskModel>> GetTasksUnderManager(int userId)
+        {
+            var response = await _httpClient.GetAsync($"api/EmpTaskList/manager/tasks/{userId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<IEnumerable<TaskModel>>(jsonResponse);
+            }
+            return new List<TaskModel>();
+        }
+    }
 }
