@@ -20,9 +20,9 @@ namespace EMSFRONTEND.Models
             [StringLength(150)]
             public string? Title { get; set; }
 
-            public DateOnly AssignedDate { get; set; }  // Defaults to current date and time
+            public DateTime AssignedDate { get; set; }  // Defaults to current date and time
 
-            public DateOnly DeadlineDate { get; set; }
+            public DateTime DeadlineDate { get; set; }
 
             [StringLength(500)]
             public string Description { get; set; }
