@@ -173,5 +173,19 @@ namespace EMSFRONTEND.Controllers
 
 
 
-    }
+		public async Task<IActionResult> ViewUploads()
+		{
+			var role = HttpContext.Session.GetString("Role");
+			if (role != "Manager")
+			{
+				return Unauthorized();
+			}
+			var managerId = HttpContext.Session.GetInt32("SUserId") ?? 0; // Get ManagerId from session
+			var leaveRequests = await _taskListService.GetUploadsForManager(managerId);
+
+			return View(leaveRequests);
+		}
+
+
+	}
 }

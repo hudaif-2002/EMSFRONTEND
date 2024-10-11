@@ -195,6 +195,25 @@ namespace EMSFRONTEND.Services
                 Console.WriteLine($"Error: {errorContent}"); // Log the error response
             }
             return response.IsSuccessStatusCode;
-        }
-    }
+		}
+
+
+
+
+        // Get all uploads for the manager
+
+
+  public async Task<IEnumerable<UploadModel>> GetUploadsForManager(int userId)
+		{
+			var response = await _httpClient.GetAsync($"api/EmpTaskList/manager/uploads/{userId}");
+		
+			if (response.IsSuccessStatusCode)
+			{
+				var jsonResponse = await response.Content.ReadAsStringAsync();
+				return JsonConvert.DeserializeObject<IEnumerable<UploadModel>>(jsonResponse);
+			}
+			return new List<UploadModel>();
+		}
+
+	}
 }
