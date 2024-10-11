@@ -24,8 +24,8 @@ namespace EMSFRONTEND.Models
                 get
                 {
                     if (NumberOfTasksAssigned == 0) return 0; // Avoid division by zero
-                    return (double)CompletedCount / NumberOfTasksAssigned * 100;
-                }
+                    return Math.Round((double)CompletedCount / NumberOfTasksAssigned * 100, 2);
+            }
             }
 
             // Navigation property
