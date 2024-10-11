@@ -6,6 +6,257 @@
 
 <h2>Signup</h2>
 <form asp-action="Signup" method="post">
+<div class="form-group">
+<label asp-for="Username">Username</label>
+<input asp-for="Username" class="form-control" />
+<span asp-validation-for="Username" class="text-danger"></span>
+</div>
+
+    <div class="form-group">
+<label asp-for="Password">Password</label>
+<input asp-for="Password" class="form-control" type="password" />
+<span asp-validation-for="Password" class="text-danger"></span>
+</div>
+
+    <div class="form-group">
+<label asp-for="Email">Email</label>
+<input asp-for="Email" class="form-control" />
+<span asp-validation-for="Email" class="text-danger"></span>
+</div>
+
+    <div class="form-group">
+<label asp-for="FullName">Full Name</label>
+<input asp-for="FullName" class="form-control" />
+<span asp-validation-for="FullName" class="text-danger"></span>
+</div>
+
+    <div class="form-group">
+<label asp-for="Role">Role</label>
+<select asp-for="Role" class="form-control" id="roleSelection">
+<option value="Employee">Employee</option>
+<option value="Manager">Manager</option>
+</select>
+<span asp-validation-for="Role" class="text-danger"></span>
+</div>
+
+    <!-- Manager Dropdown for Employee Signup -->
+<div class="form-group" id="managerSelection" style="display:none;">
+<label for="ManagerName">Select Manager</label>
+<select asp-for="ManagerName" class="form-control">
+<option value="">-- Select Manager --</option>
+            @foreach (var manager in ViewBag.Managers as List<EMSFRONTEND.Models.UsersModel>)
+            {
+<option value="@manager.FullName">@manager.FullName</option>
+            }
+</select>
+<span asp-validation-for="ManagerName" class="text-danger"></span>
+</div>
+
+    <button type="submit" class="btn btn-primary">Signup</button>
+</form>
+
+@section Scripts {
+<script>
+        // Show/Hide Manager selection dropdown based on role selection
+        document.getElementById("roleSelection").addEventListener("change", function () {
+            var role = this.value;
+            var managerSelection = document.getElementById("managerSelection");
+
+            if (role === "Employee") {
+                managerSelection.style.display = "block";
+            } else {
+                managerSelection.style.display = "none";
+            }
+        });
+</script>
+}
+*@
+
+
+  @model EMSFRONTEND.Models.UsersModel
+
+@{
+    ViewData["Title"] = "Signup";
+}
+
+<style>
+    body {
+        background: linear-gradient(to right, #dfc2fe, #8ba3ca);
+        color: white;
+        margin: 0; /* Remove default margin */
+        height: 100vh; /* Full height of viewport */
+        display: flex;
+        justify-content: center; /* Center content horizontally */
+        align-items: flex-start; /* Align content to the top */
+    }
+
+    .form-group label {
+        color: white;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: background-color 0.3s ease, transform 0.3s ease; /* Transition for button */
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+            transform: scale(1.05); /* Slightly enlarge button on hover */
+        }
+
+    .signup-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* Align items to the top */
+        height: auto; /* Auto height */
+        margin-top: 50px; /* Space from top of the screen */
+    }
+
+    .signup-form {
+        background-color: rgba(0, 0, 0, 0.5); /* Optional: transparent background */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        width: 400px; /* Increased width of the form */
+        transition: transform 0.3s ease; /* Transition for form */
+    }
+
+        .signup-form:hover {
+            transform: translateY(-5px); /* Slightly move form up on hover */
+        }
+
+    .button-container {
+        display: flex;
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center; /* Center elements */
+        margin-top: 20px; /* Optional: Add some space above the button */
+    }
+
+    .login-link {
+        margin-top: 10px; /* Space above the link */
+        color: white; /* Link color */
+        text-decoration: none; /* Remove underline */
+        transition: color 0.3s ease; /* Transition for link */
+    }
+
+        .login-link:hover {
+            color: #FFD700; /* Change color on hover */
+        }
+</style>
+
+<div class="signup-container">
+    <form asp-action="Signup" method="post" class="signup-form">
+        <h2>Signup</h2>
+
+        <div class="form-group">
+            <label asp-for="Username">Username</label>
+            <input asp-for="Username" class="form-control" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Password">Password</label>
+            <input asp-for="Password" class="form-control" type="password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email">Email</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="FullName">Full Name</label>
+            <input asp-for="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DateOfJoining">Date of Joining</label>
+            <input asp-for="DateOfJoining" class="form-control" type="date" />
+            <span asp-validation-for="DateOfJoining" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group">
+            <label asp-for="Role">Role</label>
+            <select asp-for="Role" class="form-control" id="roleSelection">
+                <option value="Manager">Manager</option>
+                <option value="Employee">Employee</option>
+
+            </select>
+            <span asp-validation-for="Role" class="text-danger"></span>
+        </div>
+
+        <!-- Manager Dropdown for Employee Signup -->
+        <div class="form-group" id="managerSelection" style="display:none;">
+            <label for="ManagerName">Select Manager</label>
+            <select asp-for="ManagerName" class="form-control">
+                <option value="">-- Select Manager --</option>
+                @foreach (var manager in ViewBag.Managers as List<EMSFRONTEND.Models.UsersModel>)
+                {
+                    <option value="@manager.FullName">@manager.FullName</option>
+                }
+            </select>
+            <span asp-validation-for="ManagerName" class="text-danger"></span>
+        </div>
+
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary">Signup</button>
+            <a href="/Auth/Login" class="login-link">Already have an account? Login</a> <!-- Login link -->
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        // Show/Hide Manager selection dropdown based on role selection
+        document.getElementById("roleSelection").addEventListener("change", function () {
+            var role = this.value;
+            var managerSelection = document.getElementById("managerSelection");
+
+            if (role === "Employee") {
+                managerSelection.style.display = "block";
+            } else {
+                managerSelection.style.display = "none";
+            }
+        });
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*   @model EMSFRONTEND.Models.UsersModel
+
+@{
+    ViewData["Title"] = "Signup";
+}
+
+<h2>Signup</h2>
+<form asp-action="Signup" method="post">
     <div class="form-group">
         <label asp-for="Username">Username</label>
         <input asp-for="Username" class="form-control" />
@@ -73,7 +324,7 @@
  *@
 
 
-
+@* 
   @model EMSFRONTEND.Models.UsersModel
 
 @{
@@ -224,4 +475,4 @@
             }
         });
     </script>
-}
+} *@

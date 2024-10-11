@@ -33,7 +33,7 @@ namespace EMSFRONTEND.Controllers
         }
 
 
-        public async Task<IActionResult> ViewProfile(int userId)
+        public async Task<IActionResult> ProfileView(int userId)
         {
             var userProfile = await _teamService.GetProfileAsync(userId);
             if (userProfile == null)
@@ -53,12 +53,12 @@ namespace EMSFRONTEND.Controllers
                 var result = await _teamService.UpdateProfileAsync(updatedUser);
                 if (result)
                 {
-                    return RedirectToAction("ViewProfile", new { userId = updatedUser.UserId });
+                    return RedirectToAction("ProfileView", new { userId = updatedUser.UserId });
                 }
                 ModelState.AddModelError("", "Error updating profile.");
             }
 
-            return View(updatedUser); // Return the updated user for re-editing
+            return View("ProfileView", updatedUser); // Return the updated user for re-editing
         }
     }
 

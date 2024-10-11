@@ -8,7 +8,7 @@ namespace EMSFRONTEND.Controllers
     {
         public class DashboardController : Controller
         {
-            public IActionResult ManagerDashboard()
+         /*   public IActionResult ManagerDashboard()
             {
                 return View(); // Ensure you have a view for the manager dashboard
             }
@@ -17,15 +17,18 @@ namespace EMSFRONTEND.Controllers
             {
                 return View(); // Ensure you have a view for the employee dashboard
             }
-
+*/
 
             public IActionResult ManagerView()
             {
+                ViewBag.UserId = HttpContext.Session.GetInt32("SUserId") ?? 0;
+
                 return View();
             }
 
             public IActionResult EmployeeView()
             {
+                ViewBag.UserId = HttpContext.Session.GetInt32("SUserId") ?? 0;
                 return View();
             }
         }

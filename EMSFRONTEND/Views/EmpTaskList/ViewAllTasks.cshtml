@@ -1,0 +1,42 @@
+﻿
+
+@model IEnumerable<EMSFRONTEND.Models.TaskModel>
+
+<h2>View all Assigned tasks to the employees</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>TaskId</th>
+            <th>UserId</th>
+            <th>TaskName</th>
+            <th>AssignedDate</th>
+            <th>DeadlineDate</th>
+            <th>Description</th>
+            <th>TaskStatus</th>
+            <th>Resources</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var upload in Model)
+
+        {
+            <tr>
+                <td>@upload.TaskId</td>
+                <td>@upload.UserId</td>
+                <td>@upload.Title</td>
+                <td>@upload.AssignedDate</td>
+                <td>@upload.DeadlineDate</td>
+                <td>@upload.Description</td>
+                <td>@upload.TaskStatus</td>
+                <td>@upload.Resources</td>
+
+            </tr>
+
+        }
+    </tbody>
+</table>
+

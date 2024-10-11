@@ -4,9 +4,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+/*builder.Services.AddHttpClient<EmpTaskListService>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5293");
+// Adjust to your API Base URL
+});*/
 
 builder.Services.AddHttpClient<LoginSignupService>(); // Register the service
 builder.Services.AddHttpClient<TeamService>();
+builder.Services.AddHttpClient<PerformanceService>();
+builder.Services.AddHttpClient<EmpTaskListService>();
+builder.Services.AddHttpClient<LeaveRequestService>();
 
 // Add session support
 builder.Services.AddSession(options =>

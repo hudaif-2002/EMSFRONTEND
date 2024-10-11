@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<TaskModel>
+
+@{
+    ViewData["Title"] = "Task List";
+}
+
+<h2>Assigned Tasks</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Task Id</th>
+            <th>Task Title</th>
+            <th>Description</th>
+            <th>Assigned Date</th>
+            <th>Deadline Date</th>
+            <th>Resources</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>@task.TaskId</td>
+                <td>@task.Title</td>
+                <td>@task.Description</td>
+                <td>@task.AssignedDate </td>
+                <td>@task.DeadlineDate</td>
+                <td>@task.Resources</td>
+                <td>@task.TaskStatus</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

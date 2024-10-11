@@ -1,0 +1,135 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model EMSFRONTEND.Models.TaskModel
+
+@{
+    ViewData["Title"] = "Assign Task";
+}
+
+<h2>Assign Task</h2>
+
+<form asp-action="AssignTask" method="post">
+    <div>
+        <label for="Title">Title</label>
+        <input type="text" name="Title" required />
+    </div>
+    <div>
+        <label for="UserId">Assign To</label>
+        <select name="UserId" required>
+            <option value="">Select an employee</option>
+            @if (ViewBag.Employees is List<EMSFRONTEND.Models.UsersModel> employees && employees.Any())
+            {
+                foreach (var employee in employees)
+                {
+                    <option value="@employee.UserId">@employee.Username</option>
+                }
+            }
+            else
+            {
+                <option value="">No employees available</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label for="Description">Description</label>
+<textarea name="Description"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="AssignedDate">Assigned Date</label>
+        <input type="date" name="AssignedDate" class="form-control" />
+    </div>
+
+    <div>
+        <label for="DeadlineDate">Due Date</label>
+        <input type="date" name="DeadlineDate" required />
+    </div>
+
+    <div>
+        <label for="Resources">Resources</label>
+        <input type="text" name="Resources" required />
+    </div>
+    <button type="submit">Assign Task</button>
+</form>
+
+
+
+
+
+@*
+          @model EMSFRONTEND.Models.TaskModel
+
+<h2>Assign Task to Employee</h2>
+
+<!-- Display validation summary -->
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-action="AssignTask" method="post">
+<div class="form-group">
+<label for="TaskName">Task Name</label>
+<input asp-for="TaskName" class="form-control" />
+<span asp-validation-for="TaskName" class="text-danger"></span>
+</div>
+
+    <div class="form-group">
+<label for="Description">Description</label>
+<textarea asp-for="Description" class="form-control"></textarea>
+<span asp-validation-for="Description" class="text-danger"></span>
+</div>
+
+        <div class="form-group">
+<label for="AssignedDate">Assigned Date</label>
+<input asp-for="AssignedDate" type="date" class="form-control" />
+<span asp-validation-for="AssignedDate" class="text-danger"></span>
+</div>
+
+    <div class="form-group">
+<label for="DeadlineDate">Deadline Date</label>
+<input asp-for="DeadlineDate" type="date" class="form-control" />
+<span asp-validation-for="DeadlineDate" class="text-danger"></span>
+</div>
+
+    @* <div class="form-group">
+<label for="AssignedToUserId">Assign to Employee</label>
+<select asp-for="UserId" class="form-control">
+<option value="">-- Select Employee --</option>
+            @foreach (var employee in ViewBag.Employees as List<EMSFRONTEND.Models.UsersModel>)
+            {
+<option value="@employee.UserId">@employee.Username</option>
+            }
+</select>
+<span asp-validation-for="UserId" class="text-danger"></span>
+</div>
+
+    <div class="form-group">
+<label for="UserId">Assign to Employee</label>
+<select asp-for="UserId" class="form-control">
+<option value="">-- Select Employee --</option>
+            @if (ViewBag.Employees is List<EMSFRONTEND.Models.UsersModel> employees && employees.Any())
+            {
+                foreach (var employee in employees)
+                {
+<option value="@employee.UserId">@employee.Username</option>
+                }
+            }
+            else
+            {
+<option value="">No employees available</option>
+            }
+</select>
+<span asp-validation-for="UserId" class="text-danger"></span>
+</div>
+
+
+    <div class="form-group">
+<label for="Resources">Resources</label>
+<textarea asp-for="Resources" class="form-control"></textarea>
+</div>
+
+    <button type="submit" class="btn btn-primary">Assign Task</button>
+</form>
+*@
+

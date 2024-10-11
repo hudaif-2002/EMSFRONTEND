@@ -135,9 +135,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <button class="btn btn-outline-secondary btn-profile" id="profileIcon">
-                        <i class="bi bi-person-circle"></i> <!-- Bootstrap Profile Icon -->
-                    </button>
+                    <a class="btn btn-outline-secondary btn-profile" id="profileIcon"
+                       asp-controller="Team"
+                       asp-action="ProfileView"
+                       asp-route-userId="@ViewBag.UserId">
+                        <!-- Pass the UserId as a route parameter -->
+                        <i class="bi bi-person-circle"></i>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -147,19 +151,19 @@
     <div class="sidebar" id="sidebar">
         <ul class="nav flex-column" style="margin-top: 30px;">
             <li class="nav-item">
-                <a class="nav-link" href="/Employee/Team">
-                    <i class="bi bi-people-fill"></i>
-                    <span>Team</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Employee/Tasks">
+                <a class="nav-link" href="/EmpTaskList/TaskList">
                     <i class="bi bi-check-square-fill"></i>
-                    <span>Tasks</span>
+                    <span>View My Tasks</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/Employee/LeaveRequests">
+                <a class="nav-link" href="/EmpTaskList/UploadTask">
+                    <i class="bi bi-check-square-fill"></i>
+                    <span>Upload Task</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/LeaveRequest/Create">
                     <i class="bi bi-calendar-x-fill"></i>
                     <span>Leave Requests</span>
                 </a>
