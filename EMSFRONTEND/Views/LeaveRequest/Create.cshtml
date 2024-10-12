@@ -7,7 +7,7 @@
 
 @model EMSFRONTEND.Models.LeaveRequestModel
 
-<h2>Create Leave Request</h2>
+@* <h2>Create Leave Request</h2>
 
 <form asp-action="Create" method="post">
     <div>
@@ -25,18 +25,171 @@
 <textarea asp-for="Reason"></textarea>
         <span asp-validation-for="Reason"></span>
     </div>
-
-
-    @*        <div>
-    <label asp-for="UserId"></label>
-    <textarea asp-for="UserId"></textarea>
-    <span asp-validation-for="UserId"></span>
-    </div> *@
-
-
-    @* <input type="hidden" asp-for="UserId" value="@ViewBag.UserId" /> *@
-    <!-- Set UserId as needed -->
     <button type="submit">Submit Leave Request</button>
 </form>
 
-<a asp-action="ViewLeaveRequestStatus">View My Leave Requests</a>
+<a asp-action="ViewLeaveRequestStatus">View My Leave Requests</a> *@
+
+
+
+@* <div class="card">
+    <div class="card-header">
+        <h2>Leave Request Form</h2>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post" class="form-horizontal">
+            <div class="form-group">
+                <label asp-for="FromDate" class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="FromDate" type="date" class="form-control" />
+                    <span asp-validation-for="FromDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToDate" class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="ToDate" type="date" class="form-control" />
+                    <span asp-validation-for="ToDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reason" class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <textarea asp-for="Reason" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Reason" class="text-danger"></span>
+                </div>
+            </div>
+            <input type="hidden" asp-for="UserId" value="@ViewBag.UserId" />
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Submit Leave Request</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<a asp-action="ViewLeaveRequestStatus" class="btn btn-default">View My Leave Requests</a> *@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leave Request Form</title>
+    <style>
+        body {
+            background-color: #FFEBEE;
+        }
+
+        .card {
+            width: 400px;
+            background-color: #fff;
+            border: none;
+            border-radius: 12px;
+        }
+
+        label.radio {
+            cursor: pointer;
+            width: 100%;
+        }
+
+            label.radio input {
+                position: absolute;
+                top: 0;
+                left: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+
+            label.radio span {
+                padding: 7px 14px;
+                border: 2px solid #eee;
+                display: inline-block;
+                color: #039be5;
+                border-radius: 10px;
+                width: 100%;
+                height: 48px;
+                line-height: 27px;
+            }
+
+            label.radio input:checked + span {
+                border-color: #039be5;
+                background-color: #81d4fa;
+                color: #fff;
+                border-radius: 9px;
+                height: 48px;
+                line-height: 27px;
+            }
+
+        .form-control {
+            margin-top: 10px;
+            height: 48px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+        }
+
+            .form-control:focus {
+                box-shadow: none;
+                border: 2px solid #039be5;
+            }
+
+        .agree-text {
+            font-size: 12px;
+        }
+
+        .terms {
+            font-size: 12px;
+            text-decoration: none;
+            color: #039be5;
+        }
+
+        .confirm-button {
+            height: 50px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 mb-5 d-flex justify-content-center">
+        <div class="card px-1 py-4">
+            <div class="card-body">
+                <h6 class="card-title mb-3">Leave Request Form</h6>
+
+                <form asp-action="Create" method="post" class="form-horizontal">
+                    <div class="form-group">
+                        <label asp-for="FromDate" class="col-sm-4 control-label"></label>
+                        <div class="col-sm-10">
+                            <input asp-for="FromDate" type="date" class="form-control" />
+                            <span asp-validation-for="FromDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ToDate" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <input asp-for="ToDate" type="date" class="form-control" />
+                            <span asp-validation-for="ToDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Reason" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <textarea asp-for="Reason" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Reason" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="UserId" value="@ViewBag.UserId" />
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Submit Leave Request</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <a asp-action="ViewLeaveRequestStatus" class="btn btn-default">View My Approved Leave Requests</a>
+</body>
+</html>
