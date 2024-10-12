@@ -29,5 +29,14 @@ namespace EMSFRONTEND.Services
             }
             return new List<PerformanceModel>();
         }
+        // New method to create a performance record
+        public async Task<bool> CreatePerformance(PerformanceModel performance)
+        {
+            var jsonContent = JsonConvert.SerializeObject(performance);
+            var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync("api/performance", contentString);
+            return response.IsSuccessStatusCode;
+        }
     }
 }

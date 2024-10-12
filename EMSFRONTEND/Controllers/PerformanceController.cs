@@ -27,8 +27,14 @@ namespace EMSFRONTEND.Controllers
             var managerId = HttpContext.Session.GetInt32("SUserId") ?? 0;
             var performances = await _performanceService.GetPerformancesByManager(managerId);
 
+            // Check if performances is not null and has data
+            if (performances == null || !performances.Any())
+            {
+                ModelState.AddModelError("", "No performance data found.");
+            }
             return View(performances);
         }
     }
+   
 }
 
