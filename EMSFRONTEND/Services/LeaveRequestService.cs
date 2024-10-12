@@ -39,7 +39,7 @@ namespace EMSFRONTEND.Services
         // Get Leave Requests for Manager
 
 
-        public async Task<IEnumerable<LeaveRequestModel>> GetLeaveRequestsForManager(int userId)
+       /* public async Task<IEnumerable<LeaveRequestModel>> GetLeaveRequestsForManager(int userId)
         {
             var response = await _httpClient.GetAsync($"api/leaverequest/manager/requests/{userId}");
             if (response.IsSuccessStatusCode)
@@ -48,8 +48,21 @@ namespace EMSFRONTEND.Services
                 return JsonConvert.DeserializeObject<IEnumerable<LeaveRequestModel>>(jsonResponse);
             }
             return new List<LeaveRequestModel>();
-        }
+        }*/
+        public async Task<IEnumerable<LeaveRequestwithFullDetailsDto>> GetLeaveRequestsForManager(int userId)
+        {
+            var response = await _httpClient.GetAsync($"api/leaverequest/manager/requests/{userId}");
 
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                // Deserialize the API response into the DTO
+                var leaverequests = JsonConvert.DeserializeObject<List<LeaveRequestwithFullDetailsDto>>(jsonResponse);
+                return leaverequests;
+            }
+
+            return new List<LeaveRequestwithFullDetailsDto>(); // Return empty list in case of failure
+        }
 
         // Approve Leave Request
         public async Task<bool> ApproveLeaveRequest(int requestId)
@@ -64,6 +77,7 @@ namespace EMSFRONTEND.Services
             var response = await _httpClient.PutAsync($"api/leaverequest/{requestId}/reject", null);
             return response.IsSuccessStatusCode;
         }
+
 
     }
 }

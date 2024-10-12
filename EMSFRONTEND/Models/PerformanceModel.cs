@@ -25,11 +25,11 @@ namespace EMSFRONTEND.Models
                 {
                     if (NumberOfTasksAssigned == 0) return 0; // Avoid division by zero
                     return Math.Round((double)CompletedCount / NumberOfTasksAssigned * 100, 2);
+                }
             }
-            }
-
-            // Navigation property
-           // public virtual UsersModel User { get; set; }
-        }
+            public string FullName { get; set; }
+        // Navigation property
+        // public virtual UsersModel User { get; set; }
+    }
     }
 

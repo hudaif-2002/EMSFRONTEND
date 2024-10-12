@@ -79,7 +79,7 @@
     <title>Leave Request Form</title>
     <style>
         body {
-            background-color: #FFEBEE;
+            background-color: #f8f8f8;
         }
 
         .card {
@@ -148,6 +148,12 @@
             height: 50px;
             border-radius: 10px;
         }
+
+        #SubmitButton
+        {
+            margin-left:120px;
+            margin-top:10px;
+        }
     </style>
 </head>
 <body>
@@ -178,10 +184,10 @@
                             <span asp-validation-for="Reason" class="text-danger"></span>
                         </div>
                     </div>
-                    <input type="hidden" asp-for="UserId" value="@ViewBag.UserId" />
+                
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary">Submit Leave Request</button>
+                            <button type="submit" class="btn btn-primary" id="SubmitButton">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -190,6 +196,18 @@
         </div>
     </div>
 
-    <a asp-action="ViewLeaveRequestStatus" class="btn btn-default">View My Approved Leave Requests</a>
+    <a asp-action="ViewLeaveRequestStatus" class="btn btn-primary">View My Leave Status</a>
+ <div class="mt-3">
+    <a href="@Url.Action("EmployeeView", "Dashboard")" class="btn btn-outline-primary">Back to Dashboard</a>
+  </div>
+
+
+   @*  @section Scripts {
+        <script>
+            document.getElementById('backButton').addEventListener('click', function () {
+                window.history.back(); // Go back to the previous page
+            });
+        </script>
+    } *@
 </body>
 </html>
