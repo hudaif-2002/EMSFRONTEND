@@ -22,7 +22,7 @@ namespace EMSFRONTEND.Controllers
             public IActionResult ManagerView()
             {
                 ViewBag.UserId = HttpContext.Session.GetInt32("SUserId") ?? 0;
-
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
                 return View();
             }
 
