@@ -26,6 +26,8 @@ namespace EMSFRONTEND.Services
             return null; // Handle error appropriately
         }
 
+
+
         // Get all users except admin
         public async Task<IEnumerable<UsersModel>> GetAllUsersExceptAdminAsync()
         {
