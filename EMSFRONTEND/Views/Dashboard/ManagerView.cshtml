@@ -2,126 +2,8 @@
 @{
     ViewData["Title"] = "Manager Dashboard";
 }
+@model EMSFRONTEND.Models.ManagerDashboardModel
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>@ViewData["Title"]</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        /* Ensure the body takes up the full height */
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            background-color: #f8f9fa;
-        }
-
-        /* Navbar remains at the top */
-        .navbar {
-            z-index: 1000;
-        }
-
-        /* Sidebar styling */
-        .sidebar {
-            width: 60px; /* Initial width when hidden */
-            background-color: #343a40;
-            position: fixed;
-            top: 56px; /* Account for the navbar height */
-            left: 0;
-            bottom: 0;
-            padding-top: 20px; /* Adjusted padding for the hamburger icon */
-            color: white;
-            transition: width 0.3s; /* Smooth transition for width */
-            overflow: hidden; /* Hide overflow when collapsed */
-        }
-
-            .sidebar.expanded {
-                width: 250px; /* Expanded width */
-                overflow: auto; /* Allow overflow when expanded */
-            }
-
-            .sidebar a {
-                color: white;
-                padding: 15px 10px;
-                text-decoration: none;
-                display: flex; /* Use flexbox to align icon and text */
-                align-items: center; /* Center items vertically */
-                justify-content: center; /* Center items horizontally when collapsed */
-                white-space: nowrap; /* Prevent text from wrapping */
-                transition: padding-left 0.3s; /* Smooth transition for padding */
-            }
-
-            .sidebar.expanded a {
-                justify-content: flex-start; /* Align items to the start when expanded */
-                padding-left: 20px; /* Add padding to the left for expanded view */
-            }
-
-            .sidebar a:hover {
-                background-color: #007bff;
-            }
-
-        /* Main content should fill the available space */
-        .main-content {
-            margin-left: 60px; /* Align main content with hidden sidebar */
-            padding: 20px;
-            flex-grow: 1;
-            background-color: #f8f9fa;
-            height: calc(100vh - 56px); /* Full height minus navbar */
-            overflow-y: auto; /* Enable scrolling if content exceeds screen height */
-            transition: margin-left 0.3s; /* Smooth transition for content */
-        }
-
-        .sidebar.expanded ~ .main-content {
-            margin-left: 250px; /* Shift main content when sidebar is expanded */
-        }
-
-        /* Profile icon styling */
-        .btn-profile {
-            padding: 0.3rem;
-            font-size: 1.5rem;
-        }
-
-        /* Styling for sidebar links with icons */
-        .sidebar a {
-            padding-left: 0; /* Remove left padding when collapsed */
-        }
-
-        .sidebar i {
-            margin-right: 10px; /* Space between icon and text */
-        }
-
-        /* Hide text when sidebar is collapsed */
-        .sidebar a span {
-            display: none; /* Hide text by default */
-        }
-
-        .sidebar.expanded a span {
-            display: inline; /* Show text on expanded view */
-        }
-
-        /* Show only icons when collapsed */
-        .sidebar a {
-            padding-left: 0; /* Remove left padding when collapsed */
-        }
-
-        /* Hamburger icon margin */
-        .btn-hamburger {
-            margin-right: 15px; /* Increased distance from the Manager Dashboard text */
-        }
-    </style>
-</head>
-<body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <button class="btn btn-outline-secondary btn-hamburger" id="hamburger">
@@ -146,57 +28,168 @@
         </div>
     </nav>
 
-    <div class="sidebar" id="sidebar">
-        <ul class="nav flex-column" style="margin-top: 30px;">
-            <li class="nav-item">
-                <a class="nav-link" href="/Team/Teams">
-                    <i class="bi bi-people-fill"></i>
-                    <span>Team</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/EmpTaskList/AssignTask">
-                    <i class="bi bi-check-square-fill"></i>
-                    <span>Assign Tasks</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/EmpTaskList/ViewUploads">
-                    <i class="bi bi-check-square-fill"></i>
-                    <span>View Uploads</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/EmpTaskList/ViewAllTasks">
-                    <i class="bi bi-check-square-fill"></i>
-                    <span>View All Tasks</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/LeaveRequest/ApproveOrRejectLeave">
-                    <i class="bi bi-calendar-x-fill"></i>
-                    <span>Leave Requests</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Performance/PerformanceView">
-                    <i class="bi bi-bar-chart-fill"></i>
-                    <span>Performance</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Auth/Logout">
-                    <i class="bi bi-door-open-fill"></i>
-                    <span>Logout</span>
-                </a>
-            </li>
-        </ul>
+    <div class="main-content" id="mainContent">
+    <h1>Welcome, @ViewBag.UserName</h1>
+
+        <div class="card-main-container">
+            <div class="cards">
+                <div class="card card-1">
+                    <div class="card__icon"><i class="fas fa-bolt"></i></div>
+                    <p class="card__exit"><i class="fas fa-times"></i></p>
+                    <h2 class="card__title">Total Employee</h2>
+                    <p class="card__apply">
+                    <h3><span class="card_Value">@Model.DashboardCardModel.TotalEmployee</span></h3>
+                    </p>
+                </div>
+                <div class="card card-2">
+                    <div class="card__icon"><i class="fas fa-bolt"></i></div>
+                    <p class="card__exit"><i class="fas fa-times"></i></p>
+                    <h2 class="card__title">Total task assigned.</h2>
+                    <p class="card__apply">
+                    <h3><span class="card_Value">@Model.DashboardCardModel.TotalTask</span></h3>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="main-content" id="mainContent">
-        <h1>Welcome to the Manager Dashboard</h1>
-        <p>This is your dashboard where you can manage tasks, team members, and leave requests.</p>
-    </div>
+
+    <style>
+        .crad-main-container {
+            padding: 30px;
+        }
+
+        /* HEADING */
+
+        .card-heading {
+            text-align: center;
+        }
+
+        .heading__title {
+            font-weight: 600;
+        }
+
+        .heading__credits {
+            margin: 10px 0px;
+            color: #888888;
+            font-size: 25px;
+            transition: all 0.5s;
+        }
+
+        .heading__link {
+            text-decoration: none;
+        }
+
+        .heading__credits .heading__link {
+            color: inherit;
+        }
+
+        /* CARDS */
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            margin: 20px;
+            padding: 20px;
+            width: 300px;
+            min-height: 200px;
+            display: grid;
+            grid-template-rows: 20px 50px 1fr 50px;
+            border-radius: 10px;
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+            transition: all 0.2s;
+        }
+
+            .card:hover {
+                box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+                transform: scale(1.01);
+            }
+
+        .card__link,
+        .card__exit,
+        .card__icon {
+            position: relative;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+            .card__link::after {
+                position: absolute;
+                top: 25px;
+                left: 0;
+                content: "";
+                width: 0%;
+                height: 3px;
+                background-color: rgba(255, 255, 255, 0.6);
+                transition: all 0.5s;
+            }
+
+            .card__link:hover::after {
+                width: 100%;
+            }
+
+        .card__exit {
+            grid-row: 1/2;
+            justify-self: end;
+        }
+
+        .card__icon {
+            grid-row: 2/3;
+            font-size: 30px;
+        }
+
+        .card__title {
+            grid-row: 3/4;
+            font-weight: 400;
+            color: black;
+        }
+
+        .card__apply {
+            grid-row: 4/5;
+            align-self: center;
+        }
+
+        /* CARD BACKGROUNDS */
+
+        .card-1 {
+            background: radial-gradient(#1fe4f5, #3fbafe);
+        }
+
+        .card-2 {
+            background: radial-gradient(#fbc1cc, #fa99b2);
+        }
+
+    </style>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">FullName</th>
+            <th scope="col">Task Title</th>
+            <th scope="col">Task Status</th>
+            <th scope="col">Leave Reason</th>
+            <th scope="col">Leave Status</th>
+            <th scope="col">Task Completed Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var data in Model.DashboardTableModel)
+        {
+            <tr>
+                <td>@data.FullName</td>
+                <td>@data.TaskTitle</td>
+                <td>@data.TaskStatus</td>
+                <td>@data.LeaveReason</td>
+                <td>@data.LeaveStatus</td>
+                <td>@data.CompletedCount</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -221,8 +214,7 @@
             sidebar.classList.remove('expanded');
         });
     </script>
-</body>
-</html>
+
 
 
 

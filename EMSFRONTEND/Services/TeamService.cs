@@ -1,4 +1,5 @@
 ﻿using EMSFRONTEND.Models;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,28 @@ namespace EMSFRONTEND.Services
         {
             var response = await _httpClient.PatchAsJsonAsync($"api/team/EditProfile?userId={updatedUser.UserId}", updatedUser);
             return response.IsSuccessStatusCode;
+        }
+
+        public async Task<ManagerDashboardModel> GetManagerDashboardData(int userId)
+        {
+            var response = await _httpClient.GetAsync($"api/team/get-manager-dashboard-data?userId={userId}");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<ManagerDashboardModel>(jsonResponse);
+            }
+            return null;
+        }
+        
+        public async Task<EmployeeDashboardModel> GetEmployeeDashboardData(int userId)
+        {
+            var response = await _httpClient.GetAsync($"api/team/get-employee-dashboard-data?userId={userId}");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<EmployeeDashboardModel>(jsonResponse);
+            }
+            return null;
         }
     }
 }
