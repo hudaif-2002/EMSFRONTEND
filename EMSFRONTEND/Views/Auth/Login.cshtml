@@ -39,8 +39,7 @@
     }
 
     .image-container {
-        width: 40%; /* Keep image width */
-        border-radius: 0 15px 15px 0;
+        align-self:center;
     }
 
         .image-container img {
@@ -124,8 +123,8 @@
 <div class="login-container">
     <!-- Form Section -->
     <div class="form-container">
-        <h1>Login</h1>
-        <form asp-action="Login" method="post">
+        <h1 class="text-center">Login</h1>
+        <form asp-action="Login" method="post" style="padding-top:40px">
             <!-- Username Field with Icon -->
             <div class="form-group">
                 <i class="fas fa-user"></i> <!-- Font Awesome user icon -->

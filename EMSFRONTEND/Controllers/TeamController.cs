@@ -36,7 +36,8 @@ namespace EMSFRONTEND.Controllers
         public async Task<IActionResult> ProfileView(int userId)
         {
             var userProfile = await _teamService.GetProfileAsync(userId);
-            if (userProfile == null)
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+			if (userProfile == null)
             {
                 return NotFound();
             }

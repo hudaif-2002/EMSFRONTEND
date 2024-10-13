@@ -23,7 +23,7 @@ namespace EMSFRONTEND.Services
             {
                 return await response.Content.ReadFromJsonAsync<UsersModel>();
             }
-            return null; // Handle error appropriately
+            return null; 
         }
 
         // Get all users except admin
@@ -34,7 +34,7 @@ namespace EMSFRONTEND.Services
             {
                 return await response.Content.ReadFromJsonAsync<IEnumerable<UsersModel>>();
             }
-            return null; // Handle error appropriately
+            return null; 
         }
 
 

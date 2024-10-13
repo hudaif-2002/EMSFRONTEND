@@ -30,15 +30,8 @@
         </tbody>
     </table>
 }
+
 <div class="mt-3">
-    <button type="button" class="btn btn-outline-primary" id="backButton">Back</button>
+    <a href="@Url.Action("ManagerView", "Dashboard")" class="btn btn-outline-primary">Back to Dashboard</a>
 </div>
 
-@section Scripts {
-    <script>
-     
-               document.getElementById('backButton').addEventListener('click', function () {
-            window.history.back(); // Go back to the previous page
-        });
-    </script>
-}

@@ -1,219 +1,174 @@
-﻿
+﻿@model EMSFRONTEND.Models.ManagerDashboardModel
 @{
-    ViewData["Title"] = "Manager Dashboard";
+	ViewData["Title"] = "Manager Dashboard";
 }
-@model EMSFRONTEND.Models.ManagerDashboardModel
 
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <button class="btn btn-outline-secondary btn-hamburger" id="hamburger">
-            <i class="bi bi-list"></i>
-        </button>
-        <a class="navbar-brand" href="#">Manager Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="btn btn-outline-secondary btn-profile" id="profileIcon"
-                       asp-controller="Team"
-                       asp-action="ProfileView"
-                       asp-route-userId="@ViewBag.UserId">
-                        <!-- Pass the UserId as a route parameter -->
-                        <i class="bi bi-person-circle"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+<div class="main-content" id="mainContent">
+	<h1>Welcome, @ViewBag.UserName</h1>
 
-    <div class="main-content" id="mainContent">
-    <h1>Welcome, @ViewBag.UserName</h1>
-
-        <div class="card-main-container">
-            <div class="cards">
-                <div class="card card-1">
-                    <div class="card__icon"><i class="fas fa-bolt"></i></div>
-                    <p class="card__exit"><i class="fas fa-times"></i></p>
-                    <h2 class="card__title">Total Employee</h2>
-                    <p class="card__apply">
-                    <h3><span class="card_Value">@Model.DashboardCardModel.TotalEmployee</span></h3>
-                    </p>
-                </div>
-                <div class="card card-2">
-                    <div class="card__icon"><i class="fas fa-bolt"></i></div>
-                    <p class="card__exit"><i class="fas fa-times"></i></p>
-                    <h2 class="card__title">Total task assigned.</h2>
-                    <p class="card__apply">
-                    <h3><span class="card_Value">@Model.DashboardCardModel.TotalTask</span></h3>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="card-main-container">
+		<div class="cards">
+			<div class="card card-1">
+				<div class="card__icon"><i class="fas fa-bolt"></i></div>
+				<p class="card__exit"><i class="fas fa-times"></i></p>
+				<h2 class="card__title">Total Employee</h2>
+				<p class="card__apply">
+					<h3><span class="card_Value">@Model.DashboardCardModel.TotalEmployee</span></h3>
+				</p>
+			</div>
+			<div class="card card-2">
+				<div class="card__icon"><i class="fas fa-bolt"></i></div>
+				<p class="card__exit"><i class="fas fa-times"></i></p>
+				<h2 class="card__title">Total task assigned.</h2>
+				<p class="card__apply">
+					<h3><span class="card_Value">@Model.DashboardCardModel.TotalTask</span></h3>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
 
 
-    <style>
-        .crad-main-container {
-            padding: 30px;
-        }
+<style>
+	.crad-main-container {
+		padding: 30px;
+	}
 
-        /* HEADING */
+	/* HEADING */
 
-        .card-heading {
-            text-align: center;
-        }
+	.card-heading {
+		text-align: center;
+	}
 
-        .heading__title {
-            font-weight: 600;
-        }
+	.heading__title {
+		font-weight: 600;
+	}
 
-        .heading__credits {
-            margin: 10px 0px;
-            color: #888888;
-            font-size: 25px;
-            transition: all 0.5s;
-        }
+	.heading__credits {
+		margin: 10px 0px;
+		color: #888888;
+		font-size: 25px;
+		transition: all 0.5s;
+	}
 
-        .heading__link {
-            text-decoration: none;
-        }
+	.heading__link {
+		text-decoration: none;
+	}
 
-        .heading__credits .heading__link {
-            color: inherit;
-        }
+	.heading__credits .heading__link {
+		color: inherit;
+	}
 
-        /* CARDS */
+	/* CARDS */
 
-        .cards {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+	.cards {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
 
-        .card {
-            margin: 20px;
-            padding: 20px;
-            width: 300px;
-            min-height: 200px;
-            display: grid;
-            grid-template-rows: 20px 50px 1fr 50px;
-            border-radius: 10px;
-            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
-            transition: all 0.2s;
-        }
+	.card {
+		margin: 20px;
+		padding: 20px;
+		width: 300px;
+		min-height: 200px;
+		display: grid;
+		grid-template-rows: 20px 50px 1fr 50px;
+		border-radius: 10px;
+		box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+		transition: all 0.2s;
+	}
 
-            .card:hover {
-                box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
-                transform: scale(1.01);
-            }
+		.card:hover {
+			box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+			transform: scale(1.01);
+		}
 
-        .card__link,
-        .card__exit,
-        .card__icon {
-            position: relative;
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.9);
-        }
+	.card__link,
+	.card__exit,
+	.card__icon {
+		position: relative;
+		text-decoration: none;
+		color: rgba(255, 255, 255, 0.9);
+	}
 
-            .card__link::after {
-                position: absolute;
-                top: 25px;
-                left: 0;
-                content: "";
-                width: 0%;
-                height: 3px;
-                background-color: rgba(255, 255, 255, 0.6);
-                transition: all 0.5s;
-            }
+		.card__link::after {
+			position: absolute;
+			top: 25px;
+			left: 0;
+			content: "";
+			width: 0%;
+			height: 3px;
+			background-color: rgba(255, 255, 255, 0.6);
+			transition: all 0.5s;
+		}
 
-            .card__link:hover::after {
-                width: 100%;
-            }
+		.card__link:hover::after {
+			width: 100%;
+		}
 
-        .card__exit {
-            grid-row: 1/2;
-            justify-self: end;
-        }
+	.card__exit {
+		grid-row: 1/2;
+		justify-self: end;
+	}
 
-        .card__icon {
-            grid-row: 2/3;
-            font-size: 30px;
-        }
+	.card__icon {
+		grid-row: 2/3;
+		font-size: 30px;
+	}
 
-        .card__title {
-            grid-row: 3/4;
-            font-weight: 400;
-            color: black;
-        }
+	.card__title {
+		grid-row: 3/4;
+		font-weight: 400;
+		color: black;
+	}
 
-        .card__apply {
-            grid-row: 4/5;
-            align-self: center;
-        }
+	.card__apply {
+		grid-row: 4/5;
+		align-self: center;
+	}
 
-        /* CARD BACKGROUNDS */
+	/* CARD BACKGROUNDS */
 
-        .card-1 {
-            background: radial-gradient(#1fe4f5, #3fbafe);
-        }
+	.card-1 {
+		background: radial-gradient(#1fe4f5, #3fbafe);
+	}
 
-        .card-2 {
-            background: radial-gradient(#fbc1cc, #fa99b2);
-        }
-
-    </style>
+	.card-2 {
+		background: radial-gradient(#fbc1cc, #fa99b2);
+	}
+</style>
 
 <table class="table">
-    <thead>
-        <tr>
-            <th scope="col">FullName</th>
-            <th scope="col">Task Title</th>
-            <th scope="col">Task Status</th>
-            <th scope="col">Leave Reason</th>
-            <th scope="col">Leave Status</th>
-            <th scope="col">Task Completed Count</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var data in Model.DashboardTableModel)
-        {
-            <tr>
-                <td>@data.FullName</td>
-                <td>@data.TaskTitle</td>
-                <td>@data.TaskStatus</td>
-                <td>@data.LeaveReason</td>
-                <td>@data.LeaveStatus</td>
-                <td>@data.CompletedCount</td>
-            </tr>
-        }
-    </tbody>
+	<thead>
+		<tr>
+			<th scope="col">FullName</th>
+			<th scope="col">Task Title</th>
+			<th scope="col">Task Status</th>
+			<th scope="col">Leave Reason</th>
+			<th scope="col">Leave Status</th>
+			<th scope="col">Task Completed Count</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var data in Model.DashboardTableModel)
+		{
+			<tr>
+				<td>@data.FullName</td>
+				<td>@data.TaskTitle</td>
+				<td>@data.TaskStatus</td>
+				<td>@data.LeaveReason</td>
+				<td>@data.LeaveStatus</td>
+				<td>@data.CompletedCount</td>
+			</tr>
+		}
+	</tbody>
 </table>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        document.getElementById('profileIcon').addEventListener('click', function () {
-            const mainContent = document.getElementById('mainContent');
-            mainContent.style.backgroundColor = mainContent.style.backgroundColor === 'lightblue' ? '#f8f9fa' : 'lightblue';
-        });
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-        const sidebar = document.getElementById('sidebar');
-        const hamburger = document.getElementById('hamburger');
-
-        hamburger.addEventListener('click', function () {
-            sidebar.classList.toggle('expanded');
-        });
-
-        sidebar.addEventListener('mouseenter', function () {
-            sidebar.classList.add('expanded');
-        });
-
-        sidebar.addEventListener('mouseleave', function () {
-            sidebar.classList.remove('expanded');
-        });
-    </script>
 
 
 

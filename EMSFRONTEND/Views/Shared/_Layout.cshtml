@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor accessor
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,10 +101,129 @@
     </style>
 </head>
 <body>
-    @* @if ()
+	@if (accessor.HttpContext.Session.GetString("Role") == "Employee")
+	{
+		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+			<button class="btn btn-outline-secondary btn-hamburger" id="hamburger">
+				<i class="bi bi-list"></i> <!-- Hamburger icon -->
+			</button>
+			<a class="navbar-brand" href="#">EMS</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="btn btn-outline-secondary btn-profile" id="profileIcon"
+						   asp-controller="Team"
+						   asp-action="ProfileView"
+						   asp-route-userId="@ViewBag.UserId">
+
+							<i class="bi bi-person-circle"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<!-- Sidebar for Employee -->
+		<div class="sidebar" id="sidebar">
+			<ul class="nav flex-column" style="margin-top: 30px;">
+				<li class="nav-item">
+					<a class="nav-link" href="/EmpTaskList/TaskList">
+						<i class="bi bi-list-check"></i>
+						<span>View Tasks</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/EmpTaskList/UploadTask">
+						<i class="bi bi-cloud-upload-fill"></i>
+						<span>Upload Task</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/LeaveRequest/Create">
+						<i class="bi bi-calendar-x-fill"></i>
+						<span>Leave Requests</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/Performance/MyPerformance">
+						<i class="bi bi-bar-chart-fill"></i>
+						<span>Performance</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/Auth/Logout">
+						<i class="bi bi-door-open-fill"></i>
+						<span>Logout</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+
+		@* <nav id="sidebar">
+			<ul>
+				<li>
+					<a asp-area="" asp-controller="EmpTaskList" asp-action="TaskList">
+						<i class="bi bi-list-check"></i>
+						<span>View Tasks</span>
+					</a>
+				</li>
+				<li>
+					<a asp-area="" asp-controller="EmpTaskList" asp-action="UploadTask">
+						<i class="bi bi-cloud-upload-fill"></i>
+						<span>Upload Task</span>
+					</a>
+				</li>
+				<li>
+					<a asp-area="" asp-controller="LeaveRequest" asp-action="Create">
+						<i class="bi bi-calendar-x-fill"></i>
+						<span>Leave Requests</span>
+					</a>
+				</li>
+				<li>
+					<a asp-area="" asp-controller="Performance" asp-action="MyPerformance">
+						<i class="bi bi-bar-chart-fill"></i>
+						<span>Performance</span>
+					</a>
+				</li>
+				<li>
+					<a asp-area="" asp-controller="Auth" asp-action="Logout">
+						<i class="bi bi-door-open-fill"></i>
+						<span>Logout</span>
+					</a>
+				</li>
+			</ul>
+		</nav> *@
+	}
+
+	@if (accessor.HttpContext.Session.GetString("Role") == "Manager")
     {
+		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+			<button class="btn btn-outline-secondary btn-hamburger" id="hamburger">
+				<i class="bi bi-list"></i> <!-- Hamburger icon -->
+			</button>
+			<a class="navbar-brand" href="#">EMS</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="btn btn-outline-secondary btn-profile" id="profileIcon"
+						   asp-controller="Team"
+						   asp-action="ProfileView"
+						   asp-route-userId="@ViewBag.UserId">
+
+							<i class="bi bi-person-circle"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
         
-    } *@
+		<!-- Sidebar for Manager -->
     <div class="sidebar" id="sidebar">
         <ul class="nav flex-column" style="margin-top: 30px;">
             <li class="nav-item">
@@ -151,16 +271,39 @@
             </li>
         </ul>
     </div>
+	}
+
+
+
 
     <div class="container" style="padding-top: 50px;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+	<script>
+		// Toggle sidebar expansion on hamburger click
+		const sidebar = document.getElementById('sidebar');
+		const hamburger = document.getElementById('hamburger');
+
+		hamburger.addEventListener('click', function () {
+			sidebar.classList.toggle('expanded');
+		});
+
+		// Expand sidebar on hover
+		sidebar.addEventListener('mouseenter', function () {
+			sidebar.classList.add('expanded');
+		});
+
+		// Collapse sidebar on mouse leave
+		sidebar.addEventListener('mouseleave', function () {
+			sidebar.classList.remove('expanded');
+		});
+	</script>
 </body>
 </html>
