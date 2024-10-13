@@ -16,28 +16,69 @@ namespace EMSFRONTEND.Services
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri("http://localhost:5293");
         }
-        public async Task<IEnumerable<PerformanceModel>> GetPerformancesByManager(int managerId)
+       
+        public async Task<IEnumerable<PerformanceWithFullNameDto>> GetPerformancesByManager(int managerId)
         {
-            var response = await _httpClient.GetAsync($"api/performance/manager/{managerId}");
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<IEnumerable<PerformanceModel>>(jsonResponse);
+                // Make the HTTP GET request to the API
+                var response = await _httpClient.GetAsync($"api/performance/manager/{managerId}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+
+                    // Deserialize the JSON response to the expected DTO
+                    return JsonConvert.DeserializeObject<IEnumerable<PerformanceWithFullNameDto>>(jsonResponse);
+                }
+
+                // Optionally log the response status code for debugging purposes
+                Console.WriteLine($"Failed to fetch performances. Status code: {response.StatusCode}");
+
+                // Return an empty list in case of failure
+                return new List<PerformanceWithFullNameDto>();
             }
-            return new List<PerformanceModel>(); // Return empty list if API call fails
+            catch (Exception ex)
+            {
+                // Optionally log the exception for further investigation
+                Console.WriteLine($"An error occurred: {ex.Message}");
+
+                // Return an empty list if an exception occurs
+                return new List<PerformanceWithFullNameDto>();
+            }
         }
 
-        /*     public async Task<IEnumerable<PerformanceModel>> GetPerformancesByManager(int managerId)
-             {
-                 var response = await _httpClient.GetAsync($"api/performance/manager/{managerId}");
-                 if (response.IsSuccessStatusCode)
-                 {
-                     var jsonResponse = await response.Content.ReadAsStringAsync();
-                     *//*var performances = JsonConvert.DeserializeObject<List<PerformanceModel>>(jsonResponse);
-                     return performances;*//*
-                     return JsonConvert.DeserializeObject<IEnumerable<PerformanceModel>>(jsonResponse);
-                 }
-                 return new List<PerformanceModel>();
-             }*/
+
+        public async Task<PerformanceWithFullNameDto> GetPerformanceByUser(int userId)
+        {
+            try
+            {
+                // Make the HTTP GET request to the API
+                var response = await _httpClient.GetAsync($"api/performance/user/{userId}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+
+                    // Deserialize the JSON response to the expected DTO
+                    return JsonConvert.DeserializeObject<PerformanceWithFullNameDto>(jsonResponse);
+                }
+
+                // Log the response status code for debugging purposes
+                Console.WriteLine($"Failed to fetch performance. Status code: {response.StatusCode}");
+
+                // Return null in case of failure
+                return null;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception for further investigation
+                Console.WriteLine($"An error occurred: {ex.Message}");
+
+                // Return null if an exception occurs
+                return null;
+            }
+        }
+
     }
 }

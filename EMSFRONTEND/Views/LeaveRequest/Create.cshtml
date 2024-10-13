@@ -7,72 +7,6 @@
 
 @model EMSFRONTEND.Models.LeaveRequestModel
 
-@* <h2>Create Leave Request</h2>
-
-<form asp-action="Create" method="post">
-    <div>
-        <label asp-for="FromDate"></label>
-        <input asp-for="FromDate" type="date" />
-        <span asp-validation-for="FromDate"></span>
-    </div>
-    <div>
-        <label asp-for="ToDate"></label>
-        <input asp-for="ToDate" type="date" />
-        <span asp-validation-for="ToDate"></span>
-    </div>
-    <div>
-        <label asp-for="Reason"></label>
-<textarea asp-for="Reason"></textarea>
-        <span asp-validation-for="Reason"></span>
-    </div>
-    <button type="submit">Submit Leave Request</button>
-</form>
-
-<a asp-action="ViewLeaveRequestStatus">View My Leave Requests</a> *@
-
-
-
-@* <div class="card">
-    <div class="card-header">
-        <h2>Leave Request Form</h2>
-    </div>
-    <div class="card-body">
-        <form asp-action="Create" method="post" class="form-horizontal">
-            <div class="form-group">
-                <label asp-for="FromDate" class="col-sm-2 control-label"></label>
-                <div class="col-sm-10">
-                    <input asp-for="FromDate" type="date" class="form-control" />
-                    <span asp-validation-for="FromDate" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="ToDate" class="col-sm-2 control-label"></label>
-                <div class="col-sm-10">
-                    <input asp-for="ToDate" type="date" class="form-control" />
-                    <span asp-validation-for="ToDate" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Reason" class="col-sm-2 control-label"></label>
-                <div class="col-sm-10">
-                    <textarea asp-for="Reason" class="form-control" rows="3"></textarea>
-                    <span asp-validation-for="Reason" class="text-danger"></span>
-                </div>
-            </div>
-            <input type="hidden" asp-for="UserId" value="@ViewBag.UserId" />
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary">Submit Leave Request</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<a asp-action="ViewLeaveRequestStatus" class="btn btn-default">View My Leave Requests</a> *@
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -201,13 +135,5 @@
     <a href="@Url.Action("EmployeeView", "Dashboard")" class="btn btn-outline-primary">Back to Dashboard</a>
   </div>
 
-
-   @*  @section Scripts {
-        <script>
-            document.getElementById('backButton').addEventListener('click', function () {
-                window.history.back(); // Go back to the previous page
-            });
-        </script>
-    } *@
 </body>
 </html>

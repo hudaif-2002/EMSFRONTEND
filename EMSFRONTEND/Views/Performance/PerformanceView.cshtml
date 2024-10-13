@@ -3,31 +3,52 @@
 *@
 @{
 }
-@model IEnumerable<EMSFRONTEND.Models.PerformanceModel>
+@model IEnumerable<EMSFRONTEND.Models.PerformanceWithFullNameDto>
+<h2 class="text-center mb-4">Employee Performance</h2>
 
-<h2>Employee Performance</h2>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Full Name</th>
+                    <th>Number of Tasks Assigned</th>
+                    <th>Completed Tasks</th>
+                    <th>Performance Percentage (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var performance in Model)
+                {
+                    <tr>
+                        <td>@performance.FullName</td>
+                        <td>@performance.NumberOfTasksAssigned</td>
+                        <td>@performance.CompletedCount</td>
+                        <td>
+                            @if (performance.NumberOfTasksAssigned > 0)
+                            {
+                                @(performance.PerformancePercentage.ToString("0.00") + "%")
+                            }
+                            else
+                            {
+                                @("N/A")
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>UserId</th>
-            <th>Number of Tasks Assigned</th>
-            <th>Completed Tasks</th>
-            <th>Performance Percentage</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var performance in Model)
-        {
-            <tr>
-                <td>@performance.UserId</td>
-                <td>@performance.NumberOfTasksAssigned</td>
-                <td>@performance.CompletedCount</td>
-                <td>@performance.PerformancePercentage</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="d-flex justify-content-center mt-4">
+        <a href="@Url.Action("ManagerView", "Dashboard")" class="btn btn-outline-primary">Back to Dashboard</a>
+    </div>
+</div>
+
+
+
+
+
 
 
 @* <!DOCTYPE html>
@@ -54,7 +75,6 @@
         <thead>
             <tr>
                 <th>UserId</th>
-                <th>Employee Name</th>
                 <th>Number of Tasks Assigned</th>
                 <th>Completed Tasks</th>
                 <th>Performance Percentage</th>
@@ -65,7 +85,6 @@
             {
                 <tr>
                     <td>@performance.UserId</td>
-                    <td>@performance.FullName</td>
                     <td>@performance.NumberOfTasksAssigned</td>
                     <td>@performance.CompletedCount</td>
                     <td>@performance.PerformancePercentage</td>
@@ -78,7 +97,7 @@
     var ctx = document.getElementById('performanceChart').getContext('2d');
 
     var data = {
-        labels: @Html.Raw(Json.Serialize(Model.Select(p => p.FullName))), // Use FullName for labels
+        labels: @Html.Raw(Json.Serialize(Model.Select(p => p.UserId))), // Use UserId for labels
         datasets: [{
             label: 'Performance Percentage',
             data: @Html.Raw(Json.Serialize(Model.Select(p => p.PerformancePercentage))),
@@ -103,4 +122,4 @@
         options: options
     });
 </script>
- *@</html>
+</html> *@
