@@ -3,102 +3,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EMSFRONTEND</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/EMSFRONTEND.styles.css" asp-append-version="true" />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - EMSFRONTEND</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/EMSFRONTEND.styles.css" asp-append-version="true" />
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
 
 
-    <style>
-        .sidebar {
-            width: 60px; 
-            background-color: #343a40;
-            position: fixed;
-            top: 56px; 
-            left: 0;
-            bottom: 0;
-            padding-top: 20px; 
-            color: white;
-            transition: width 0.3s; 
-            overflow: hidden; 
-        }
+	<style>
+		.sidebar {
+			width: 60px;
+			background-color: #343a40;
+			position: fixed;
+			top: 56px;
+			left: 0;
+			bottom: 0;
+			padding-top: 20px;
+			color: white;
+			transition: width 0.3s;
+			overflow: hidden;
+		}
 
-            .sidebar.expanded {
-                width: 250px; 
-                overflow: auto; 
-            }
+			.sidebar.expanded {
+				width: 250px;
+				overflow: auto;
+			}
 
-            .sidebar a {
-                color: white;
-                padding: 15px 10px;
-                text-decoration: none;
-                display: flex; 
-                align-items: center; 
-                justify-content: center; 
-                white-space: nowrap; 
-                transition: padding-left 0.3s; 
-            }
+			.sidebar a {
+				color: white;
+				padding: 15px 10px;
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				white-space: nowrap;
+				transition: padding-left 0.3s;
+			}
 
-            .sidebar.expanded a {
-                justify-content: flex-start; 
-                padding-left: 20px;
-            }
+			.sidebar.expanded a {
+				justify-content: flex-start;
+				padding-left: 20px;
+			}
 
-            .sidebar a:hover {
-                background-color: #007bff;
-            }
+			.sidebar a:hover {
+				background-color: #c2c5c7;
+				color: #343a40;
+			}
 
-        .main-content {
-            /* margin-left: 60px;  */
-            padding: 20px;
-            flex-grow: 1;
-            background-color: #f8f9fa;
-            /* height: calc(100vh - 56px); */ 
-            /* overflow-y: auto;  */
-            transition: margin-left 0.3s; 
-        }
+		.main-content {
+			/* margin-left: 60px;  */
+			padding: 20px;
+			flex-grow: 1;
+			background-color: #f8f9fa;
+			/* height: calc(100vh - 56px); */
+			/* overflow-y: auto;  */
+			transition: margin-left 0.3s;
+		}
 
-        .sidebar.expanded ~ .main-content {
-            margin-left: 250px; 
-        }
+		.sidebar.expanded ~ .main-content {
+			margin-left: 250px;
+		}
 
 
-        .btn-profile {
-            padding: 0.3rem;
-            font-size: 1.5rem;
-        }
+		.btn-profile {
+			padding: 0.3rem;
+			font-size: 1.5rem;
+		}
 
-   
-        .sidebar a {
-            padding-left: 0; 
-        }
 
-        .sidebar i {
-            margin-right: 10px; 
-        }
+		.sidebar a {
+			padding-left: 0;
+		}
 
-      
-        .sidebar a span {
-            display: none; 
-        }
+		.sidebar i {
+			margin-right: 10px;
+		}
 
-        .sidebar.expanded a span {
-            display: inline; 
-        }
 
-        .sidebar a {
-            padding-left: 0; 
-        }
+		.sidebar a span {
+			display: none;
+		}
 
-        .btn-hamburger {
-            margin-right: 15px; 
-        }
-    </style>
+		.sidebar.expanded a span {
+			display: inline;
+		}
+
+		.sidebar a {
+			padding-left: 0;
+		}
+
+		.btn-hamburger {
+			margin-right: 15px;
+		}
+
+		main {
+			padding: min(30px, 7%);
+		}
+
+			main p {
+				color: var(--secondary-text-clr);
+				margin-top: 5px;
+				margin-bottom: 15px;
+			}
+
+		.main-container {
+			border: 1px solid var(--line-clr);
+			border-radius: 1em;
+			width: 100%;
+			height: 100%;
+			max-width: 95%;
+			max-height: 85%;
+			/*margin-bottom: 20px;
+			padding: min(3em, 15%);
+			margin:3.5rem 1.5rem;*/
+			/*align-self:center;
+			justify-self:center;*/
+		}
+	</style>
 </head>
 <body>
 	@if (accessor.HttpContext.Session.GetString("Role") == "Employee")
@@ -199,7 +224,7 @@
 	}
 
 	@if (accessor.HttpContext.Session.GetString("Role") == "Manager")
-    {
+	{
 		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 			<button class="btn btn-outline-secondary btn-hamburger" id="hamburger">
 				<i class="bi bi-list"></i> <!-- Hamburger icon -->
@@ -222,69 +247,68 @@
 				</ul>
 			</div>
 		</nav>
-        
-		<!-- Sidebar for Manager -->
-    <div class="sidebar" id="sidebar">
-        <ul class="nav flex-column" style="margin-top: 30px;">
-            <li class="nav-item">
-                <a class="nav-link" href="/Team/Teams">
-                    <i class="bi bi-people-fill"></i>
-                    <span>Team</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/EmpTaskList/AssignTask">
-                    <i class="bi bi-clipboard-plus"></i>
-                    <span>Assign Tasks</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/EmpTaskList/ViewUploads">
-                    <i class="bi bi-folder2-open"></i>
-                    <span>View Uploads</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/EmpTaskList/ViewAllTasks">
-                    <i class="bi bi-list-task"></i>
-                    <span>View All Tasks</span>
-                </a>
-            </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/LeaveRequest/ApproveOrRejectLeave">
-                    <i class="bi bi-calendar-x-fill"></i>
-                    <span>Leave Requests</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Performance/PerformanceView">
-                    <i class="bi bi-bar-chart-fill"></i>
-                    <span>Performance</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Auth/Logout">
-                    <i class="bi bi-door-open-fill"></i>
-                    <span>Logout</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+		<!-- Sidebar for Manager -->
+		<div class="sidebar" id="sidebar">
+			<ul class="nav flex-column" style="margin-top: 30px;">
+				<li class="nav-item">
+					<a class="nav-link" href="/Team/Teams">
+						<i class="bi bi-people-fill"></i>
+						<span>Team</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/EmpTaskList/AssignTask">
+						<i class="bi bi-clipboard-plus"></i>
+						<span>Assign Tasks</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/EmpTaskList/ViewUploads">
+						<i class="bi bi-folder2-open"></i>
+						<span>View Uploads</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/EmpTaskList/ViewAllTasks">
+						<i class="bi bi-list-task"></i>
+						<span>View All Tasks</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/LeaveRequest/ApproveOrRejectLeave">
+						<i class="bi bi-calendar-x-fill"></i>
+						<span>Leave Requests</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/Performance/PerformanceView">
+						<i class="bi bi-bar-chart-fill"></i>
+						<span>Performance</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/Auth/Logout">
+						<i class="bi bi-door-open-fill"></i>
+						<span>Logout</span>
+					</a>
+				</li>
+			</ul>
+		</div>
 	}
 
 
 
 
-    <div class="container" style="padding-top: 50px;">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	<div class="main-content" style="padding-top: 50px;">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 
 	<script>
 		// Toggle sidebar expansion on hamburger click

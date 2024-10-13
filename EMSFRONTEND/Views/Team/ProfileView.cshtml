@@ -7,7 +7,7 @@
 
 @if (Model.UserId > 0) // Check if the user has an ID (existing profile)
 {
-	<div class="card mb-3" style="background-color:rgb(232 236 240)">
+	<div class="card ml-4 mb-3" style="background-color:rgb(232 236 240)">
 		<div class="d-flex justify-content-center mt-2">
 			<h2>@(Model.UserId > 0 ? "Profile" : "Create Profile")</h2>
 		</div>
@@ -29,7 +29,7 @@ else // Create profile form for new users
 	<h2>Create Profile</h2>
 }
 
-<div id="editForm" style="display: @(Model.UserId > 0 ? "none" : "block")">
+<div class="ml-4" id="editForm" style="display: @(Model.UserId > 0 ? "none" : "block")">
 	<form asp-action="EditProfile" method="post">
 		<input type="hidden" asp-for="UserId" />
 		<input type="hidden" asp-for="Role" />
@@ -63,13 +63,13 @@ else // Create profile form for new users
 
 @if (ViewBag.Role == "Manager")
 {
-	<div class="mt-3">
+	<div class="mt-3 ml-4">
 		<a href="@Url.Action("ManagerView", "Dashboard")" class="btn btn-outline-primary">Back to Dashboard</a>
 	</div>
 }
 else
 {
-	<div class="mt-3">
+	<div class="mt-3 ml-4">
 		<a href="@Url.Action("EmployeeView", "Dashboard")" class="btn btn-outline-primary">Back to Dashboard</a>
 	</div>
 }
