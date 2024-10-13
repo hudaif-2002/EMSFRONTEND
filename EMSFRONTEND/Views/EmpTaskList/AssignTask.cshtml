@@ -1,135 +1,98 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
+
+
 @model EMSFRONTEND.Models.TaskModel
 
 @{
-    ViewData["Title"] = "Assign Task";
+    ViewData["Title"] = "Assign Task"; // Set the title for the page
 }
 
-<h2>Assign Task</h2>
+<!-- Apply background color to the entire page -->
+<style>
+    body {
+        background-color: white; // Set the background color to white
+    }
+</style>
 
-<form asp-action="AssignTask" method="post">
-    <div>
-        <label for="Title">Title</label>
-        <input type="text" name="Title" required />
+<h2 class="text-center mb-4">Assign Task</h2> <!-- Main heading -->
+
+<div class="container position-relative">
+    <!-- Centered form -->
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <form asp-action="AssignTask" method="post" class="p-5 rounded shadow-lg" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); max-width: 800px; width: 100%; border-radius: 10px;">
+                <!-- Task Title Input -->
+                <div class="mb-4">
+                    <label for="Title" class="form-label fw-bold">Task Title</label>
+                    <input type="text" name="Title" class="form-control border-0 shadow-sm p-3" placeholder="Enter task title" required style="border-radius: 10px;" />
+                </div>
+
+                <!-- Assign To Dropdown -->
+                <div class="mb-4">
+                    <label for="UserId" class="form-label fw-bold">Assign To</label>
+                    <select name="UserId" class="form-select border-0 shadow-sm p-3" required style="border-radius: 10px;">
+                        <option value="">Select an employee</option> <!-- Default option -->
+                        @if (ViewBag.Employees is List<EMSFRONTEND.Models.UsersModel> employees && employees.Any())
+                        {
+                            // Loop through the employees to create options
+                            foreach (var employee in employees)
+                            {
+                                        <option value="@employee.UserId">@employee.Username</option> <!-- Display username -->
+                            }
+                        }
+                        else
+                        {
+                                <option value="">No employees available</option> <!-- Message if no employees -->
+                        }
+                    </select>
+                </div>
+
+                <!-- Task Description Input -->
+                <div class="mb-4">
+                    <label for="Description" class="form-label fw-bold">Task Description</label>
+                    <textarea name="Description" class="form-control border-0 shadow-sm p-3" rows="4" placeholder="Enter task details" style="border-radius: 10px;"></textarea>
+                </div>
+
+                <!-- Assigned Date and Due Date Inputs -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label for="AssignedDate" class="form-label fw-bold">Assigned Date</label>
+                        <input type="date" name="AssignedDate" class="form-control border-0 shadow-sm p-3" style="border-radius: 10px;" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="DeadlineDate" class="form-label fw-bold">Due Date</label>
+                        <input type="date" name="DeadlineDate" class="form-control border-0 shadow-sm p-3" required style="border-radius: 10px;" />
+                    </div>
+                </div>
+
+                <!-- Resources Input -->
+                <div class="mb-4">
+                    <label for="Resources" class="form-label fw-bold">Resources</label>
+                    <input type="text" name="Resources" class="form-control border-0 shadow-sm p-3" placeholder="Enter resources" required style="border-radius: 10px;" />
+                </div>
+
+                <!-- Button to submit the form -->
+                <button type="submit" class="btn btn-primary w-100 py-3" style="border-radius: 10px; background: linear-gradient(135deg, #007bff, #0056b3); transition: background 0.3s ease;">
+                    Assign Task
+                </button>
+
+                <!-- Back button -->
+                @* <button type="button" class="btn btn-outline-primary w-100 py-3 mt-3" id="backButton" style="border-radius: 10px;">
+                    Back
+                </button> *@
+
+                <div class="mt-3">
+<a href="@Url.Action("ManagerView", "Dashboard")" class="btn btn-outline-primary">Back to Dashboard</a>
+</div>
+            </form>
+        </div>
     </div>
-    <div>
-        <label for="UserId">Assign To</label>
-        <select name="UserId" required>
-            <option value="">Select an employee</option>
-            @if (ViewBag.Employees is List<EMSFRONTEND.Models.UsersModel> employees && employees.Any())
-            {
-                foreach (var employee in employees)
-                {
-                    <option value="@employee.UserId">@employee.Username</option>
-                }
-            }
-            else
-            {
-                <option value="">No employees available</option>
-            }
-        </select>
-    </div>
-    <div>
-        <label for="Description">Description</label>
-<textarea name="Description"></textarea>
-    </div>
-
-    <div class="form-group">
-        <label for="AssignedDate">Assigned Date</label>
-        <input type="date" name="AssignedDate" class="form-control" />
-    </div>
-
-    <div>
-        <label for="DeadlineDate">Due Date</label>
-        <input type="date" name="DeadlineDate" required />
-    </div>
-
-    <div>
-        <label for="Resources">Resources</label>
-        <input type="text" name="Resources" required />
-    </div>
-    <button type="submit">Assign Task</button>
-</form>
-
-
-
-
-
-@*
-          @model EMSFRONTEND.Models.TaskModel
-
-<h2>Assign Task to Employee</h2>
-
-<!-- Display validation summary -->
-<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-<form asp-action="AssignTask" method="post">
-<div class="form-group">
-<label for="TaskName">Task Name</label>
-<input asp-for="TaskName" class="form-control" />
-<span asp-validation-for="TaskName" class="text-danger"></span>
 </div>
 
-    <div class="form-group">
-<label for="Description">Description</label>
-<textarea asp-for="Description" class="form-control"></textarea>
-<span asp-validation-for="Description" class="text-danger"></span>
-</div>
-
-        <div class="form-group">
-<label for="AssignedDate">Assigned Date</label>
-<input asp-for="AssignedDate" type="date" class="form-control" />
-<span asp-validation-for="AssignedDate" class="text-danger"></span>
-</div>
-
-    <div class="form-group">
-<label for="DeadlineDate">Deadline Date</label>
-<input asp-for="DeadlineDate" type="date" class="form-control" />
-<span asp-validation-for="DeadlineDate" class="text-danger"></span>
-</div>
-
-    @* <div class="form-group">
-<label for="AssignedToUserId">Assign to Employee</label>
-<select asp-for="UserId" class="form-control">
-<option value="">-- Select Employee --</option>
-            @foreach (var employee in ViewBag.Employees as List<EMSFRONTEND.Models.UsersModel>)
-            {
-<option value="@employee.UserId">@employee.Username</option>
-            }
-</select>
-<span asp-validation-for="UserId" class="text-danger"></span>
-</div>
-
-    <div class="form-group">
-<label for="UserId">Assign to Employee</label>
-<select asp-for="UserId" class="form-control">
-<option value="">-- Select Employee --</option>
-            @if (ViewBag.Employees is List<EMSFRONTEND.Models.UsersModel> employees && employees.Any())
-            {
-                foreach (var employee in employees)
-                {
-<option value="@employee.UserId">@employee.Username</option>
-                }
-            }
-            else
-            {
-<option value="">No employees available</option>
-            }
-</select>
-<span asp-validation-for="UserId" class="text-danger"></span>
-</div>
-
-
-    <div class="form-group">
-<label for="Resources">Resources</label>
-<textarea asp-for="Resources" class="form-control"></textarea>
-</div>
-
-    <button type="submit" class="btn btn-primary">Assign Task</button>
-</form>
-*@
-
+<!-- JavaScript to handle back button functionality -->
+<script>
+    document.getElementById('backButton').addEventListener('click', function () {
+        window.history.back(); // Go back to the previous page
+    });
+</script>

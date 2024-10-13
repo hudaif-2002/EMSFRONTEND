@@ -15,6 +15,7 @@ builder.Services.AddHttpClient<TeamService>();
 builder.Services.AddHttpClient<PerformanceService>();
 builder.Services.AddHttpClient<EmpTaskListService>();
 builder.Services.AddHttpClient<LeaveRequestService>();
+builder.Services.AddHttpClient<DashboardService>();
 
 // Add session support
 builder.Services.AddSession(options =>

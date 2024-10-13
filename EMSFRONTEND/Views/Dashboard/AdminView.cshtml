@@ -1,0 +1,322 @@
+﻿@* @model IEnumerable<UsersModel>
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Custom CSS for the hacker theme -->
+<style>
+    body {
+        background-color: #1b1b1b; /* Dark background */
+        color: #c7f2c0; /* Light green text */
+        font-family: 'Courier New', Courier, monospace; /* Monospace font for hacker feel */
+    }
+
+    .table {
+        background-color: #2a2a2a; /* Dark table background */
+        border: 1px solid #3d3d3d; /* Light border for the table */
+        color: #c7f2c0; /* Light green text for table rows */
+    }
+
+        .table th {
+            background-color: #3d3d3d; /* Darker header background */
+            color: #c7f2c0; /* Same color for header text */
+        }
+
+        .table td {
+            border: 1px solid #3d3d3d; /* Light border for the cells */
+            color: #c7f2c0; /* Ensuring text color is consistent */
+        }
+
+    .btn-danger {
+        background-color: transparent; /* Transparent button */
+        border: none; /* No border */
+        color: #d9534f; /* Red icon color */
+    }
+
+        .btn-danger:hover {
+            color: #c9302c; /* Darker red on hover */
+        }
+
+    h1 {
+        color: #00ff00; /* Bright green for titles */
+    }
+
+    .sidebar {
+        background-color: #2a2a2a; /* Sidebar background */
+        height: 100vh; /* Full height */
+        position: fixed; /* Fixed position */
+        width: 200px; /* Fixed width */
+        padding: 15px; /* Padding */
+        top: 0; /* Align to top */
+        left: 0; /* Align to left */
+        display: flex; /* Flexbox for vertical alignment */
+        flex-direction: column; /* Align children vertically */
+        justify-content: center; /* Center content vertically */
+        align-items: center; /* Center content horizontally */
+    }
+
+    .sidebar-message {
+        color: #00ff00; /* Green color for the message */
+        font-size: 2em; /* Increased font size for the flickering message */
+        text-align: center; /* Center the message */
+        display: none; /* Initially hide the message */
+    }
+
+    .main-content {
+        margin-left: 220px; /* Space for the sidebar */
+        padding: 20px; /* Padding for main content */
+    }
+</style>
+
+<div class="sidebar">
+    <div class="sidebar-message" id="flickerMessage">
+        <p>Think before changing anything</p> <!-- Added message -->
+    </div>
+</div>
+
+<div class="main-content" id="mainContent">
+    <h1>Welcome to the Admin Dashboard</h1>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Date of Joining</th>
+                <th>Manager Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserId</td>
+                    <td>@user.FullName</td>
+                    <td>@user.Email</td>
+                    <td>@user.Role</td>
+                    <td>@user.DateOfJoining.ToString("yyyy-MM-dd")</td>
+                    <td>@user.ManagerName</td>
+                 
+                    <td>
+                        <form asp-action="DeleteUser" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                            <input type="hidden" name="userId" value="@user.UserId" />
+                            <button type="submit" class="btn btn-danger" title="Delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+
+             
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- JavaScript for flickering effect -->
+<script>
+    const flickerMessage = document.getElementById('flickerMessage');
+    setInterval(() => {
+        flickerMessage.style.display = (flickerMessage.style.display === 'none' || flickerMessage.style.display === '') ? 'block' : 'none';
+    }, 250); // Toggle every 250 milliseconds for faster flickering
+</script>
+
+ *@
+
+  
+
+
+                    @model IEnumerable<UsersModel>
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> <!-- Include jQuery -->
+<!-- Custom CSS for the hacker theme -->
+<style>
+    body {
+        background-color: #1b1b1b; /* Dark background */
+        color: #c7f2c0; /* Light green text */
+        font-family: 'Courier New', Courier, monospace; /* Monospace font for hacker feel */
+    }
+
+    .table {
+        background-color: #2a2a2a; /* Dark table background */
+        border: 1px solid #3d3d3d; /* Light border for the table */
+        color: #c7f2c0; /* Light green text for table rows */
+    }
+
+        .table th {
+            background-color: #3d3d3d; /* Darker header background */
+            color: #c7f2c0; /* Same color for header text */
+        }
+
+        .table td {
+            border: 1px solid #3d3d3d; /* Light border for the cells */
+            color: #c7f2c0; /* Ensuring text color is consistent */
+        }
+
+    .btn-danger {
+        background-color: transparent; /* Transparent button */
+        border: none; /* No border */
+        color: #d9534f; /* Red icon color */
+    }
+
+        .btn-danger:hover {
+            color: #c9302c; /* Darker red on hover */
+        }
+
+    h1 {
+        color: #00ff00; /* Bright green for titles */
+    }
+
+    .sidebar {
+        background-color: #2a2a2a; /* Sidebar background */
+        height: 100vh; /* Full height */
+        position: fixed; /* Fixed position */
+        width: 200px; /* Fixed width */
+        padding: 15px; /* Padding */
+        top: 0; /* Align to top */
+        left: 0; /* Align to left */
+        display: flex; /* Flexbox for vertical alignment */
+        flex-direction: column; /* Align children vertically */
+        justify-content: center; /* Center content vertically */
+        align-items: center; /* Center content horizontally */
+    }
+
+    .sidebar-message {
+        color: #00ff00; /* Green color for the message */
+        font-size: 2em; /* Increased font size for the flickering message */
+        text-align: center; /* Center the message */
+        display: none; /* Initially hide the message */
+    }
+
+    .main-content {
+        margin-left: 220px; /* Space for the sidebar */
+        padding: 20px; /* Padding for main content */
+    }
+</style>
+
+<div class="sidebar">
+    <div class="sidebar-message" id="flickerMessage">
+        <p>Kindly Manage with care, as your choices shape the future.</p> <!-- Added message -->
+    </div>
+</div>
+<!-- Logout Button -->
+<div class="text-right">
+    <form asp-action="Logout" method="post" style="display:inline;">
+        <button type="submit" class="btn btn-outline-danger" title="Logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </form>
+</div>
+
+<div class="main-content" id="mainContent">
+    <h1>Welcome to the Admin Dashboard</h1>
+
+
+   
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div id="errorMessage" class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div id="successMessage" class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Date of Joining</th>
+                <th>Manager Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserId</td>
+                    <td>@user.FullName</td>
+                    <td>@user.Email</td>
+                    <td>@user.Role</td>
+                    <td>@user.DateOfJoining.ToString("yyyy-MM-dd")</td>
+                    <td>@user.ManagerName</td>
+
+                    <td>
+                        <form asp-action="DeleteUser" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                            <input type="hidden" name="userId" value="@user.UserId" />
+                            <button type="submit" class="btn btn-danger" title="Delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- JavaScript for flickering effect and auto-dismiss alerts -->
+<script>
+    // Flickering effect for the sidebar message
+    const flickerMessage = document.getElementById('flickerMessage');
+    setInterval(() => {
+        flickerMessage.style.display = (flickerMessage.style.display === 'none' || flickerMessage.style.display === '') ? 'block' : 'none';
+    }, 800); // Toggle every 250 milliseconds for faster flickering
+
+    // Auto-dismiss success and error messages after 5 seconds
+    $(document).ready(function () {
+        var errorMessage = $('#errorMessage');
+        var successMessage = $('#successMessage');
+
+        if (errorMessage.length) {
+            setTimeout(function () {
+                errorMessage.fadeOut('slow', function () {
+                    $(this).remove();  // Remove the element after fading out
+                });
+            }, 5000); // 5 seconds
+        }
+
+        if (successMessage.length) {
+            setTimeout(function () {
+                successMessage.fadeOut('slow', function () {
+                    $(this).remove();  // Remove the element after fading out
+                });
+            }, 5000); // 5 seconds
+        }
+    });
+</script>

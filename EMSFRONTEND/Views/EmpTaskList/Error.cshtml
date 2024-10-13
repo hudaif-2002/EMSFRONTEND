@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Error";
+    var errorMessage = ViewData["ErrorMessage"] as string ?? "An unknown error occurred.";
+}
+
+<h2>Error</h2>
+<p>@errorMessage</p>
+
+<div class="mt-4">
+    <button onclick="window.history.back();" class="btn btn-secondary">Back</button>
+</div>
