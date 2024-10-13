@@ -2,35 +2,44 @@
 
 namespace EMSFRONTEND.Controllers
 {
+    using global::EMSFRONTEND.Services;
     using Microsoft.AspNetCore.Mvc;
 
     namespace EMSFRONTEND.Controllers
     {
         public class DashboardController : Controller
         {
-         /*   public IActionResult ManagerDashboard()
+            private readonly TeamService _teamService;
+            public DashboardController(TeamService teamService)
             {
-                return View(); // Ensure you have a view for the manager dashboard
+                _teamService = teamService;
             }
 
-            public IActionResult EmployeeDashboard()
+            public async Task<IActionResult> ManagerView()
             {
-                return View(); // Ensure you have a view for the employee dashboard
+                int userId = HttpContext.Session.GetInt32("SUserId") ?? 0;
+                ViewBag.UserId = userId;
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+                var user = await _teamService.GetManagerDashboardData(userId);
+                return View(user);
             }
-*/
 
-            public IActionResult ManagerView()
+            public async Task<IActionResult> EmployeeView()
+            {
+                int userId = HttpContext.Session.GetInt32("SUserId") ?? 0;
+                ViewBag.UserId = userId;
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+                var user = await _teamService.GetEmployeeDashboardData(userId);
+                return View(user);
+            }
+
+            public IActionResult GetDashboardData()
             {
                 ViewBag.UserId = HttpContext.Session.GetInt32("SUserId") ?? 0;
-
                 return View();
             }
 
-            public IActionResult EmployeeView()
-            {
-                ViewBag.UserId = HttpContext.Session.GetInt32("SUserId") ?? 0;
-                return View();
-            }
+
         }
     }
 

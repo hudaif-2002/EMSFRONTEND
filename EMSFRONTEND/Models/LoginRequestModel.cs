@@ -6,7 +6,7 @@ namespace EMSFRONTEND.Models
     {
         public string Username { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; }  // Add this field for the role (Employee/Manager)
+        public string? Role { get; set; }  // Add this field for the role (Employee/Manager)
     }
 
 

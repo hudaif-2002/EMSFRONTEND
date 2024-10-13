@@ -64,10 +64,6 @@ namespace EMSFRONTEND.Controllers
         public async Task<IActionResult> ApproveLeave(int requestId)
         {
             var success = await _leaveRequestService.ApproveLeaveRequest(requestId);
-            if (success)
-            {
-                // You might want to add a success message here
-            }
             return RedirectToAction("ApproveOrRejectLeave");
         }
 
@@ -76,10 +72,6 @@ namespace EMSFRONTEND.Controllers
         public async Task<IActionResult> RejectLeave(int requestId)
         {
             var success = await _leaveRequestService.RejectLeaveRequest(requestId);
-            if (success)
-            {
-                // You might want to add a success message here
-            }
             return RedirectToAction("ApproveOrRejectLeave");
         }
 

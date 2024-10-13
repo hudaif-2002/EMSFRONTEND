@@ -89,13 +89,17 @@ namespace EMSFRONTEND.Controllers
         {
             if (ModelState.IsValid)
             {
+                bool isSuccess = false;
                 var user = await _loginSignupService.GetUserByUsernameAsync(model.Username);
-                var isSuccess = await _loginSignupService.LoginAsync(model);
+                if (user != null) {
+                    model.Role = user.Role;
+                    isSuccess = await _loginSignupService.LoginAsync(model);
+                }
 
                 if (isSuccess)
                 {
-                    HttpContext.Session.SetString("Username", model.Username);
-                    HttpContext.Session.SetString("Role", model.Role);
+                    HttpContext.Session.SetString("Username", user.Username);
+                    HttpContext.Session.SetString("Role", user.Role);
                     HttpContext.Session.SetInt32("SUserId", user.UserId);
 
                     if (model.Role == "Manager")
