@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace EMSFRONTEND.Controllers
 {
+
     public class AuthController : Controller
     {
         private readonly LoginSignupService _loginSignupService;
@@ -18,30 +19,22 @@ namespace EMSFRONTEND.Controllers
         [HttpGet]
         public async Task<IActionResult> Signup()
         {
-            // Load the list of managers
             var managers = await _loginSignupService.GetManagersAsync();
             ViewBag.Managers = managers;
-
             return View();
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> Signup(UsersModel model)
         {
             if (model.Role == "Manager")
             {
-                // Ensure ManagerName and ManagerId are set to fixed values for manager signup
-                model.ManagerName = "Admin";  // You can replace "CEO" with your preferred default value
-                model.ManagerId = 0;  // Set a default ManagerId (1 or any fixed ID)
-
-                // No need to select a manager during manager signup
+                model.ManagerName = "Admin";
+                model.ManagerId = 0;
                 ModelState.Remove("ManagerName");
             }
             else if (model.Role == "Employee")
             {
-                // Handle employee signup (this part is already working for you)
                 if (string.IsNullOrEmpty(model.ManagerName))
                 {
                     ModelState.AddModelError("ManagerName", "Please select a manager for Employee signup.");
@@ -60,7 +53,6 @@ namespace EMSFRONTEND.Controllers
                 }
             }
 
-            // Check if the model is valid before proceeding with signup
             if (ModelState.IsValid)
             {
                 var isSuccess = await _loginSignupService.SignupAsync(model);
@@ -71,10 +63,8 @@ namespace EMSFRONTEND.Controllers
                 ModelState.AddModelError("", "Signup failed. Please try again.");
             }
 
-            // If signup fails, reload the managers list
             var managers = await _loginSignupService.GetManagersAsync();
             ViewBag.Managers = managers;
-
             return View(model);
         }
 
@@ -91,7 +81,8 @@ namespace EMSFRONTEND.Controllers
             {
                 bool isSuccess = false;
                 var user = await _loginSignupService.GetUserByUsernameAsync(model.Username);
-                if (user != null) {
+                if (user != null)
+                {
                     model.Role = user.Role;
                     isSuccess = await _loginSignupService.LoginAsync(model);
                 }
@@ -110,7 +101,7 @@ namespace EMSFRONTEND.Controllers
                     {
                         return RedirectToAction("EmployeeView", "Dashboard");
                     }
-                    else if (model.Role == "Admin") // Ensure Admin user validation
+                    else if (model.Role == "Admin")
                     {
                         return RedirectToAction("AdminView", "Dashboard");
                     }
@@ -126,17 +117,143 @@ namespace EMSFRONTEND.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
-
-        // Fetch all managers
-        [HttpGet]
-        public async Task<JsonResult> GetManagers()
-        {
-            var managers = await _loginSignupService.GetManagersAsync();
-            return Json(managers);
-        }
-
-       
     }
+
+
+
+
+
+    /*  public class AuthController : Controller
+      {
+          private readonly LoginSignupService _loginSignupService;
+
+          public AuthController(LoginSignupService loginSignupService)
+          {
+              _loginSignupService = loginSignupService;
+          }
+
+          [HttpGet]
+          public async Task<IActionResult> Signup()
+          {
+              // Load the list of managers
+              var managers = await _loginSignupService.GetManagersAsync();
+              ViewBag.Managers = managers;
+
+              return View();
+          }
+
+
+
+          [HttpPost]
+          public async Task<IActionResult> Signup(UsersModel model)
+          {
+              if (model.Role == "Manager")
+              {
+                  // Ensure ManagerName and ManagerId are set to fixed values for manager signup
+                  model.ManagerName = "Admin";  // You can replace "CEO" with your preferred default value
+                  model.ManagerId = 0;  // Set a default ManagerId (1 or any fixed ID)
+
+                  // No need to select a manager during manager signup
+                  ModelState.Remove("ManagerName");
+              }
+              else if (model.Role == "Employee")
+              {
+                  // Handle employee signup (this part is already working for you)
+                  if (string.IsNullOrEmpty(model.ManagerName))
+                  {
+                      ModelState.AddModelError("ManagerName", "Please select a manager for Employee signup.");
+                  }
+                  else
+                  {
+                      var manager = await _loginSignupService.GetManagerByNameAsync(model.ManagerName);
+                      if (manager != null)
+                      {
+                          model.ManagerId = manager.UserId;
+                      }
+                      else
+                      {
+                          ModelState.AddModelError("ManagerName", "Selected manager not found. Please try again.");
+                      }
+                  }
+              }
+
+              // Check if the model is valid before proceeding with signup
+              if (ModelState.IsValid)
+              {
+                  var isSuccess = await _loginSignupService.SignupAsync(model);
+                  if (isSuccess)
+                  {
+                      return RedirectToAction("Login");
+                  }
+                  ModelState.AddModelError("", "Signup failed. Please try again.");
+              }
+
+              // If signup fails, reload the managers list
+              var managers = await _loginSignupService.GetManagersAsync();
+              ViewBag.Managers = managers;
+
+              return View(model);
+          }
+
+          [HttpGet]
+          public IActionResult Login()
+          {
+              return View();
+          }
+
+          [HttpPost]
+          public async Task<IActionResult> Login(LoginRequestModel model)
+          {
+              if (ModelState.IsValid)
+              {
+                  bool isSuccess = false;
+                  var user = await _loginSignupService.GetUserByUsernameAsync(model.Username);
+                  if (user != null) {
+                      model.Role = user.Role;
+                      isSuccess = await _loginSignupService.LoginAsync(model);
+                  }
+
+                  if (isSuccess)
+                  {
+                      HttpContext.Session.SetString("Username", user.Username);
+                      HttpContext.Session.SetString("Role", user.Role);
+                      HttpContext.Session.SetInt32("SUserId", user.UserId);
+
+                      if (model.Role == "Manager")
+                      {
+                          return RedirectToAction("ManagerView", "Dashboard");
+                      }
+                      else if (model.Role == "Employee")
+                      {
+                          return RedirectToAction("EmployeeView", "Dashboard");
+                      }
+                      else if (model.Role == "Admin") // Ensure Admin user validation
+                      {
+                          return RedirectToAction("AdminView", "Dashboard");
+                      }
+                  }
+                  ModelState.AddModelError("", "Invalid login attempt.");
+              }
+
+              return View(model);
+          }
+
+          public IActionResult Logout()
+          {
+              HttpContext.Session.Clear();
+              return RedirectToAction("Login");
+          }
+
+          // Fetch all managers
+          [HttpGet]
+          public async Task<JsonResult> GetManagers()
+          {
+              var managers = await _loginSignupService.GetManagersAsync();
+              return Json(managers);
+          }
+
+
+      }*/
 }
 
 
