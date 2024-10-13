@@ -9,7 +9,6 @@ namespace EMSFRONTEND.Controllers
     {
         public class DashboardController : Controller
         {
-   
             private readonly TeamService _teamService;
             public DashboardController(TeamService teamService)
             {
