@@ -1,33 +1,72 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<EMSFRONTEND.Models.UploadWithFullDetailsDto>
+
 @{
+    ViewData["Title"] = "Employee Uploads"; // Set the title for the page
 }
-@model IEnumerable<EMSFRONTEND.Models.UploadModel>
 
 <h2>Employee Uploads</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>UploadId</th>
-            <th>TaskId</th>
-            <th>UserId</th>
-            <th>FilePath</th>
-            <th>UploadedAt</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var upload in Model)
-        {
-            <tr>
-                <td>@upload.UploadId</td>
-                <td>@upload.TaskId</td>
-                <td>@upload.UserId</td>
-                <td>@upload.FilePath</td>
-                <td>@upload.UploadedAt</td>
+<div class="row">
+    @foreach (var upload in Model)
+    {
+            <div class="col-md-4 mb-4">
+              
+                <div class="card" style="border-radius: 10px; border: 1px solid #ddd;">
+                    <div class="card-body">
+                        <h5 class="card-title">Upload ID: @upload.UploadId</h5>
+                        <p class="card-text"><strong>Task Name:</strong> @upload.TaskName</p>
+                        <p class="card-text"><strong>User Name:</strong> @upload.FullName</p>
 
-            </tr>
+                        <p class="card-text">
+                            <strong>Uploaded File:</strong>
+                        @{
+                            var filePath = upload.FilePath;
+                            // Ensure the link starts with http:// or https://
+                            if (!filePath.StartsWith("http://") && !filePath.StartsWith("https://"))
+                            {
+                                filePath = "https://" + filePath; // Prepend https:// to ensure proper linking
+                            }
+                        }
+                            <a href="@filePath" target="_blank" class="text-primary">View File</a> <!-- Clickable link -->
+                        </p>
+
+                        <p class="card-text"><strong>Uploaded At:</strong> @upload.UploadedAt.ToString("MMMM dd, yyyy")</p>
+
+                    </div>
+                </div>
+            </div>
+    }
+</div>
+
+<!-- Back button to navigate to the previous page -->
+<div class="mt-4">
+    <button onclick="window.history.back();" class="btn btn-secondary">Back</button>
+</div>
+
+<!-- Custom CSS for styling -->
+<style>
+    .card {
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%; 
+    }
+
+    /* Style for the back button */
+    .btn {
+        padding: 10px 20px; 
+        font-size: 16px; 
+        border-radius: 5px;
+        cursor: pointer; 
+    }
+
+    .btn-secondary {
+        background-color: #6c757d; 
+        color: white; 
+        border: none; 
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268; 
         }
-    </tbody>
-</table>
+</style>
