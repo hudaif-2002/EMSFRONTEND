@@ -4,41 +4,51 @@
 @{
 }
 @model IEnumerable<EMSFRONTEND.Models.PerformanceWithFullNameDto>
+
 <h2 class="text-center mb-4">Employee Performance</h2>
 
 <div class="container">
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Full Name</th>
-                    <th>Number of Tasks Assigned</th>
-                    <th>Completed Tasks</th>
-                    <th>Performance Percentage (%)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var performance in Model)
-                {
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-warning text-center" role="alert">
+            No performance data available.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
                     <tr>
-                        <td>@performance.FullName</td>
-                        <td>@performance.NumberOfTasksAssigned</td>
-                        <td>@performance.CompletedCount</td>
-                        <td>
-                            @if (performance.NumberOfTasksAssigned > 0)
-                            {
-                                @(performance.PerformancePercentage.ToString("0.00") + "%")
-                            }
-                            else
-                            {
-                                @("N/A")
-                            }
-                        </td>
+                        <th>Full Name</th>
+                        <th>Number of Tasks Assigned</th>
+                        <th>Completed Tasks</th>
+                        <th>Performance Percentage (%)</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @foreach (var performance in Model)
+                    {
+                        <tr>
+                            <td>@performance.FullName</td>
+                            <td>@performance.NumberOfTasksAssigned</td>
+                            <td>@performance.CompletedCount</td>
+                            <td>
+                                @if (performance.NumberOfTasksAssigned > 0)
+                                {
+                                    @(performance.PerformancePercentage.ToString("0.00") + "%")
+                                }
+                                else
+                                {
+                                    @("N/A")
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
 
     <div class="d-flex justify-content-center mt-4">
         <a href="@Url.Action("ManagerView", "Dashboard")" class="btn btn-outline-primary">Back to Dashboard</a>
