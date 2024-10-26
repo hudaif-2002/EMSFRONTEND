@@ -18,13 +18,7 @@ namespace EMSFRONTEND.Controllers
 
         public async Task<IActionResult> PerformanceView()
         {
-            // Ensure manager role
-            var role = HttpContext.Session.GetString("Role");
-            if (role != "Manager")
-            {
-                return Unauthorized();
-            }
-
+          
             // Get the manager ID from session
             var managerId = HttpContext.Session.GetInt32("SUserId");
             if (managerId == null || managerId == 0)
